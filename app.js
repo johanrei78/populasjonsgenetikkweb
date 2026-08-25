@@ -4,7 +4,12 @@
 
 const state = {
     generations: 100,
-    numPops: 1
+    numPops: 1,
+
+    // Startfrekvens for allel A₁
+    p0: 0.5,
+    p0_1: 0.5,
+    p0_2: 0.5
 };
 
 
