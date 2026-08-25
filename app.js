@@ -41,9 +41,6 @@ const knappResultater =
 const generationsInput =
     document.getElementById("generations");
 
-const generationsValue =
-    document.getElementById("generations-value");
-
 
 // Antall populasjoner
 const numPopsInputs =
@@ -60,20 +57,11 @@ const startfrekvensToPop =
 const p0Input =
     document.getElementById("p0");
 
-const p0Value =
-    document.getElementById("p0-value");
-
 const p01Input =
     document.getElementById("p0-1");
 
-const p01Value =
-    document.getElementById("p0-1-value");
-
 const p02Input =
     document.getElementById("p0-2");
-
-const p02Value =
-    document.getElementById("p0-2-value");
 
 
 // ------------------------------------------------------------
@@ -130,7 +118,6 @@ function oppdaterInnstillingerFraState() {
 
     // Tid
     generationsInput.value = state.generations;
-    generationsValue.textContent = state.generations;
 
 
     // Antall populasjoner
@@ -140,20 +127,10 @@ function oppdaterInnstillingerFraState() {
     });
 
 
-    // Startfrekvens – én populasjon
+    // Startfrekvenser
     p0Input.value = state.p0;
-    p0Value.textContent =
-        state.p0.toFixed(2);
-
-
-    // Startfrekvenser – to populasjoner
     p01Input.value = state.p0_1;
-    p01Value.textContent =
-        state.p0_1.toFixed(2);
-
     p02Input.value = state.p0_2;
-    p02Value.textContent =
-        state.p0_2.toFixed(2);
 
 
     // Vis riktig sett med innstillinger
@@ -166,13 +143,15 @@ function oppdaterInnstillingerFraState() {
 // ------------------------------------------------------------
 
 // Antall generasjoner
-generationsInput.addEventListener("input", () => {
+generationsInput.addEventListener("change", () => {
 
-    state.generations =
-        Number(generationsInput.value);
+    const value = Number(generationsInput.value);
 
-    generationsValue.textContent =
-        state.generations;
+    if (value >= 10 && value <= 500) {
+        state.generations = Math.round(value);
+    }
+
+    generationsInput.value = state.generations;
 });
 
 
@@ -192,36 +171,38 @@ numPopsInputs.forEach(input => {
 });
 
 
-// Startfrekvens – én populasjon
-p0Input.addEventListener("input", () => {
+// ------------------------------------------------------------
+// HJELPEFUNKSJON FOR ALLELFREKVENSER
+// ------------------------------------------------------------
 
-    state.p0 =
-        Number(p0Input.value);
+function oppdaterAllelfrekvens(input, stateKey) {
 
-    p0Value.textContent =
-        state.p0.toFixed(2);
+    const value = Number(input.value);
+
+    if (value >= 0 && value <= 1) {
+        state[stateKey] = value;
+    }
+
+    input.value = state[stateKey];
+}
+
+
+// ------------------------------------------------------------
+// ALLELFREKVENSER
+// ------------------------------------------------------------
+
+p0Input.addEventListener("change", () => {
+    oppdaterAllelfrekvens(p0Input, "p0");
 });
 
 
-// Startfrekvens – populasjon 1
-p01Input.addEventListener("input", () => {
-
-    state.p0_1 =
-        Number(p01Input.value);
-
-    p01Value.textContent =
-        state.p0_1.toFixed(2);
+p01Input.addEventListener("change", () => {
+    oppdaterAllelfrekvens(p01Input, "p0_1");
 });
 
 
-// Startfrekvens – populasjon 2
-p02Input.addEventListener("input", () => {
-
-    state.p0_2 =
-        Number(p02Input.value);
-
-    p02Value.textContent =
-        state.p0_2.toFixed(2);
+p02Input.addEventListener("change", () => {
+    oppdaterAllelfrekvens(p02Input, "p0_2");
 });
 
 
