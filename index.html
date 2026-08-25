@@ -31,11 +31,48 @@
         <section id="innstillinger" class="side">
             <h2>Oppsett og evolusjonsmekanismer</h2>
 
-            <p>
-                Her skal innstillingene for simuleringen komme.
-            </p>
-        </section>
+            <fieldset class="innstillingsgruppe">
+                <legend>Tid</legend>
 
+                <label for="generations">
+                    Antall generasjoner:
+                    <strong id="generations-value">100</strong>
+                </label>
+
+                <input
+                    type="range"
+                    id="generations"
+                    min="10"
+                    max="500"
+                    step="1"
+                    value="100"
+                >
+            </fieldset>
+
+
+            <fieldset class="innstillingsgruppe">
+                <legend>Antall populasjoner</legend>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="num-pops"
+                        value="1"
+                        checked
+                >
+                1
+            </label>
+
+            <label>
+                <input
+                    type="radio"
+                    name="num-pops"
+                    value="2"
+                >
+                2
+            </label>
+        </fieldset>
+    </section>
 
         <!-- RESULTATER -->
         <section id="resultater" class="side" hidden>
