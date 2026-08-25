@@ -1,0 +1,49 @@
+/* ------------------------------------------------------------
+   GRUNNLEGGENDE STIL
+------------------------------------------------------------ */
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.5;
+    margin: 0;
+    background: #ffffff;
+    color: #222222;
+}
+
+
+header,
+main {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 1.5rem;
+}
+
+
+header {
+    border-bottom: 1px solid #dddddd;
+}
+
+
+nav {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+
+button {
+    font: inherit;
+    padding: 0.6rem 1rem;
+    cursor: pointer;
+}
+
+
+button:focus-visible {
+    outline: 3px solid #000000;
+    outline-offset: 3px;
+}
+
+
+.side {
+    margin-top: 1rem;
+}
