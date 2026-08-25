@@ -29,6 +29,7 @@
 
         <!-- INNSTILLINGER -->
         <section id="innstillinger" class="side">
+
             <h2>Oppsett og evolusjonsmekanismer</h2>
 
             <fieldset class="innstillingsgruppe">
@@ -59,28 +60,95 @@
                         name="num-pops"
                         value="1"
                         checked
-                >
-                1
-            </label>
+                    >
+                    1
+                </label>
 
-            <label>
-                <input
-                    type="radio"
-                    name="num-pops"
-                    value="2"
-                >
-                2
-            </label>
-        </fieldset>
-    </section>
+                <label>
+                    <input
+                        type="radio"
+                        name="num-pops"
+                        value="2"
+                    >
+                    2
+                </label>
+            </fieldset>
+
+
+            <fieldset class="innstillingsgruppe">
+                <legend>Startfrekvens A₁</legend>
+
+                <!-- Én populasjon -->
+                <div id="startfrekvens-en-pop">
+
+                    <label for="p0">
+                        Allelfrekvens A₁:
+                        <strong id="p0-value">0.50</strong>
+                    </label>
+
+                    <input
+                        type="range"
+                        id="p0"
+                        min="0"
+                        max="1"
+                        step="0.01"
+                        value="0.5"
+                    >
+
+                </div>
+
+
+                <!-- To populasjoner -->
+                <div id="startfrekvens-to-pop" hidden>
+
+                    <div>
+                        <label for="p0-1">
+                            Populasjon 1:
+                            <strong id="p0-1-value">0.50</strong>
+                        </label>
+
+                        <input
+                            type="range"
+                            id="p0-1"
+                            min="0"
+                            max="1"
+                            step="0.01"
+                            value="0.5"
+                        >
+                    </div>
+
+                    <div>
+                        <label for="p0-2">
+                            Populasjon 2:
+                            <strong id="p0-2-value">0.50</strong>
+                        </label>
+
+                        <input
+                            type="range"
+                            id="p0-2"
+                            min="0"
+                            max="1"
+                            step="0.01"
+                            value="0.5"
+                        >
+                    </div>
+
+                </div>
+
+            </fieldset>
+
+        </section>
+
 
         <!-- RESULTATER -->
         <section id="resultater" class="side" hidden>
+
             <h2>Resultater</h2>
 
             <p>
                 Her skal resultatene fra simuleringen komme.
             </p>
+
         </section>
 
     </main>
