@@ -37,7 +37,12 @@ const state = {
     useBottleneck: false,
     bottleneckStart: 20,
     bottleneckDuration: 10,
-    bottleneckSize: 20
+    bottleneckSize: 20,
+
+    // Genflyt
+    useMigration: false,
+    m12: 0.0,
+    m21: 0.0
 };
 
 
@@ -162,6 +167,22 @@ const bottleneckDurationInput =
 const bottleneckSizeInput =
     document.getElementById("bottleneck-size");
 
+// Genflyt
+const genflytRad =
+    document.getElementById("genflyt-rad");
+
+const useMigrationInput =
+    document.getElementById("use-migration");
+
+const migrasjonInnstillinger =
+    document.getElementById("migrasjon-innstillinger");
+
+const m12Input =
+    document.getElementById("m12");
+
+const m21Input =
+    document.getElementById("m21");
+
 // ------------------------------------------------------------
 // NAVIGASJON
 // ------------------------------------------------------------
@@ -229,6 +250,21 @@ function oppdaterDriftVisning() {
 }
 
 // ------------------------------------------------------------
+// GENFLYT
+// ------------------------------------------------------------
+
+function oppdaterMigrasjonVisning() {
+
+    // Genflyt er bare relevant ved to populasjoner
+    genflytRad.hidden =
+        state.numPops !== 2;
+
+    // Ratefeltene vises bare når migrasjon er aktivert
+    migrasjonInnstillinger.hidden =
+        !state.useMigration;
+}
+
+// ------------------------------------------------------------
 // OPPDATER GRENSESNITTET FRA STATE
 // ------------------------------------------------------------
 
@@ -292,9 +328,21 @@ function oppdaterInnstillingerFraState() {
         state.bottleneckSize;
 
 
+    // Genflyt
+    useMigrationInput.checked =
+        state.useMigration;
+
+    m12Input.value =
+        state.m12;
+
+    m21Input.value =
+        state.m21;
+    
     oppdaterDriftVisning();
     
     oppdaterPopulasjonsvisning();
+
+    oppdaterMigrasjonVisning();
 }
 
 
@@ -506,6 +554,38 @@ bottleneckSizeInput.addEventListener("change", () => {
 
     bottleneckSizeInput.value =
         state.bottleneckSize;
+});
+
+// ------------------------------------------------------------
+// GENFLYT
+// ------------------------------------------------------------
+
+useMigrationInput.addEventListener("change", () => {
+
+    state.useMigration =
+        useMigrationInput.checked;
+
+    oppdaterMigrasjonVisning();
+});
+
+
+m12Input.addEventListener("change", () => {
+
+    oppdaterSannsynlighet(
+        m12Input,
+        "m12",
+        1
+    );
+});
+
+
+m21Input.addEventListener("change", () => {
+
+    oppdaterSannsynlighet(
+        m21Input,
+        "m21",
+        1
+    );
 });
 
 
