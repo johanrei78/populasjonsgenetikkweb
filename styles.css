@@ -173,30 +173,31 @@ input[type="range"] {
 
 
 /* ------------------------------------------------------------
-   INFO-KNAPPER
+   INFO-FORKLARINGER
 ------------------------------------------------------------ */
 
 .label-med-info {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 0.4rem;
     margin-bottom: 0.25rem;
 }
-
 
 .label-med-info label {
     margin: 0;
 }
 
+.info-detaljer {
+    position: relative;
+}
 
-.info-knapp {
+.info-detaljer summary {
     display: inline-flex;
     align-items: center;
     justify-content: center;
 
     width: 1.35rem;
     height: 1.35rem;
-    padding: 0;
 
     border: 1px solid #777777;
     border-radius: 50%;
@@ -209,30 +210,39 @@ input[type="range"] {
     line-height: 1;
 
     cursor: pointer;
+    list-style: none;
 }
 
+.info-detaljer summary::-webkit-details-marker {
+    display: none;
+}
 
-.info-knapp:hover {
+.info-detaljer summary:hover {
     background: #f0f0f0;
 }
 
-
-.info-knapp:focus-visible {
+.info-detaljer summary:focus-visible {
     outline: 3px solid #000000;
     outline-offset: 2px;
 }
 
-
 .info-tekst {
-   
-    display: none;
-   
-    max-width: 28rem;
-    margin: 0.25rem 0 0.75rem;
+    position: absolute;
+    z-index: 10;
+
+    width: 20rem;
+    max-width: 70vw;
+
+    top: 1.8rem;
+    right: 0;
+
     padding: 0.65rem 0.75rem;
 
     background: #f5f5f5;
-    border-left: 3px solid #777777;
+    border: 1px solid #cccccc;
+    border-radius: 0.3rem;
+
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 
     font-size: 0.9rem;
 }
