@@ -641,13 +641,15 @@ function simulateTwoPopulations({
 }
 
 const testResultatToPop = simulateTwoPopulations({
-    p0_1: 0.2,
-    p0_2: 0.8,
+    p0_1: 0.5,
+    p0_2: 0.5,
 
+    // Populasjon 1: seleksjon mot aa
     wAA_1: 1,
     wAa_1: 1,
-    waa_1: 1,
+    waa_1: 0.5,
 
+    // Populasjon 2: ingen seleksjon
     wAA_2: 1,
     wAa_2: 1,
     waa_2: 1,
