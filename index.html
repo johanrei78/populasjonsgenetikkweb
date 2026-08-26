@@ -400,7 +400,34 @@
 
                 </fieldset>
 
-                <div></div>
+                <fieldset class="innstillingsgruppe">
+                    <legend>Genetisk drift</legend>
+
+                    <label class="drift-valg">
+                        <input
+                            type="checkbox"
+                            id="use-drift"
+                        >
+                    Inkluder genetisk drift
+                    </label>
+
+                    <div id="drift-innstillinger" hidden>
+                        <label for="population-size">
+                            Populasjonsstørrelse (N)
+                        </label>
+
+                        <input
+                            class="tallfelt"
+                            type="number"
+                            id="population-size"
+                            min="10"
+                            max="10000"
+                            step="1"
+                            value="100"
+                        >
+                    </div>
+
+                </fieldset>
 
             </div>
 
