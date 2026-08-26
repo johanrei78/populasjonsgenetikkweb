@@ -337,45 +337,7 @@ nuInput.addEventListener("change", () => {
     oppdaterSannsynlighet(nuInput, "nu", 0.01);
 });
 
-// ------------------------------------------------------------
-// INFO-KNAPPER
-// ------------------------------------------------------------
 
-const infoKnapper =
-    document.querySelectorAll(".info-knapp");
-
-
-infoKnapper.forEach(knapp => {
-
-    knapp.addEventListener("click", () => {
-
-        const infoId =
-            knapp.getAttribute("aria-controls");
-
-        const infoTekst =
-            document.getElementById(infoId);
-
-        const skalApnes =
-            !infoTekst.classList.contains("vis");
-
-
-        // Lukk alle forklaringer først
-        document.querySelectorAll(".info-tekst").forEach(info => {
-            info.classList.remove("vis");
-        });
-
-        infoKnapper.forEach(k => {
-            k.setAttribute("aria-expanded", "false");
-        });
-
-
-        // Åpne den valgte hvis den var lukket
-        if (skalApnes) {
-            infoTekst.classList.add("vis");
-            knapp.setAttribute("aria-expanded", "true");
-        }
-    });
-});
 
 // ------------------------------------------------------------
 // OPPSTART
