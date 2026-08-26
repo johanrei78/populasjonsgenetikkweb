@@ -373,6 +373,91 @@ function oppdaterFitness(input, stateKey) {
     oppdaterInnstillingerFraState();
 }
 
+// ------------------------------------------------------------
+// SIMULERINGSMOTOR – ÉN POPULASJON
+// ------------------------------------------------------------
+
+function simulateOnePopulationDeterministic({
+    p0,
+    wAA,
+    wAa,
+    waa,
+    mu,
+    nu,
+    generations
+}) {
+
+    let p = p0;
+
+    const freqs = [];
+    const genotypes = [];
+
+    // Generasjon 0
+    freqs.push(p);
+
+    genotypes.push({
+        AA: p * p,
+        Aa: 2 * p * (1 - p),
+        aa: (1 - p) * (1 - p)
+    });
+
+
+    for (let generation = 1; generation <= generations; generation++) {
+
+        // Hardy–Weinberg-frekvenser før seleksjon
+        const p2 = p * p;
+        const pq = 2 * p * (1 - p);
+        const q2 = (1 - p) * (1 - p);
+
+
+        // Naturlig seleksjon
+        const meanFitness =
+            p2 * wAA +
+            pq * wAa +
+            q2 * waa;
+
+        let pAfterSelection;
+
+        if (meanFitness === 0) {
+            pAfterSelection = p;
+        } else {
+            pAfterSelection =
+                (
+                    p2 * wAA +
+                    0.5 * pq * wAa
+                ) / meanFitness;
+        }
+
+
+        // Mutasjon
+        const pAfterMutation =
+            pAfterSelection * (1 - mu) +
+            (1 - pAfterSelection) * nu;
+
+
+        // Ingen drift i denne første versjonen
+        p = Math.min(
+            1,
+            Math.max(0, pAfterMutation)
+        );
+
+
+        // Lagre resultatet for denne generasjonen
+        freqs.push(p);
+
+        genotypes.push({
+            AA: p * p,
+            Aa: 2 * p * (1 - p),
+            aa: (1 - p) * (1 - p)
+        });
+    }
+
+
+    return {
+        freqs,
+        genotypes
+    };
+}
 
 // ------------------------------------------------------------
 // EVENT-LYTTERE
