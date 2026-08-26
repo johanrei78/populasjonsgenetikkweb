@@ -503,6 +503,62 @@
 
             </div>
 
+            <!-- GENFLYT -->
+            <div id="genflyt-rad" class="parameter-grid" hidden>
+
+                <fieldset class="innstillingsgruppe">
+                    <legend>Genflyt</legend>
+
+                    <label>
+                        <input
+                            type="checkbox"
+                            id="use-migration"
+                        >
+                        Inkluder migrasjon
+                    </label>
+
+                    <div id="migrasjon-innstillinger" hidden>
+
+                        <div class="fitness-rad">
+                            <label for="m12">
+                                Migrasjonsrate populasjon 1 → 2
+                            </label>
+
+                            <input
+                                class="tallfelt"
+                                type="number"
+                                id="m12"
+                                min="0"
+                                max="1"
+                                step="0.01"
+                                value="0"
+                            >
+                        </div>
+
+                        <div class="fitness-rad">
+                            <label for="m21">
+                                Migrasjonsrate populasjon 2 → 1
+                            </label>
+
+                            <input
+                                class="tallfelt"
+                                type="number"
+                                id="m21"
+                                min="0"
+                                max="1"
+                                step="0.01"
+                                value="0"
+                            >
+                        </div>
+
+                    </div>
+
+                </fieldset>
+
+                <div></div>
+
+            </div>
+
         </section>
 
 
