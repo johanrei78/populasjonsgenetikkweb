@@ -237,3 +237,7 @@ input[type="range"] {
 
     font-size: 0.9rem;
 }
+
+[hidden] {
+    display: none !important;
+}
