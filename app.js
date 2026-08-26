@@ -399,7 +399,7 @@ function simulateOnePopulationDeterministic({
     mu,
     nu,
     generations,
-    N = null
+    N = null,
     bottleneckStart = null,
     bottleneckDuration = null,
     bottleneckSize = null
