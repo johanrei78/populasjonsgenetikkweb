@@ -373,9 +373,23 @@ function oppdaterFitness(input, stateKey) {
     oppdaterInnstillingerFraState();
 }
 
+function sampleBinomial(n, probability) {
+    let successes = 0;
+
+    for (let i = 0; i < n; i++) {
+        if (Math.random() < probability) {
+            successes++;
+        }
+    }
+
+    return successes;
+}
+
 // ------------------------------------------------------------
 // SIMULERINGSMOTOR – ÉN POPULASJON
 // ------------------------------------------------------------
+
+
 
 function simulateOnePopulationDeterministic({
     p0,
@@ -384,7 +398,8 @@ function simulateOnePopulationDeterministic({
     waa,
     mu,
     nu,
-    generations
+    generations,
+    N = null
 }) {
 
     let p = p0;
@@ -435,11 +450,20 @@ function simulateOnePopulationDeterministic({
             (1 - pAfterSelection) * nu;
 
 
-        // Ingen drift i denne første versjonen
-        p = Math.min(
-            1,
-            Math.max(0, pAfterMutation)
-        );
+        // Genetisk drift
+        if (N !== null) {
+            const numberOfA1 = sampleBinomial(
+                2 * N,
+                pAfterMutation
+            );
+
+            p = numberOfA1 / (2 * N);
+        } else {
+            p = pAfterMutation;
+        }
+
+        // Sikre at frekvensen ligger mellom 0 og 1
+        p = Math.min(1, Math.max(0, p));
 
 
         // Lagre resultatet for denne generasjonen
@@ -460,13 +484,14 @@ function simulateOnePopulationDeterministic({
 }
 
 const testResultat = simulateOnePopulationDeterministic({
-    p0: 1.0,
+    p0: 0.5,
     wAA: 1,
     wAa: 1,
     waa: 1,
-    mu: 0.1,
+    mu: 0,
     nu: 0,
-    generations: 5
+    generations: 20,
+    N: 20
 });
 
 console.log(testResultat);
