@@ -226,6 +226,7 @@ function oppdaterPopulasjonsvisning() {
     fitnessToPop.hidden = enPop;
 
     oppdaterDriftVisning();
+    oppdaterMigrasjonVisning();
 }
 
 // ------------------------------------------------------------
@@ -255,13 +256,17 @@ function oppdaterDriftVisning() {
 
 function oppdaterMigrasjonVisning() {
 
-    // Genflyt er bare relevant ved to populasjoner
-    genflytRad.hidden =
-        state.numPops !== 2;
+    const toPopulasjoner =
+        state.numPops === 2;
 
-    // Ratefeltene vises bare når migrasjon er aktivert
+    // Hele genflytboksen vises bare ved to populasjoner
+    genflytRad.hidden =
+        !toPopulasjoner;
+
+    // Ratefeltene vises bare ved to populasjoner
+    // og når migrasjon er slått på
     migrasjonInnstillinger.hidden =
-        !state.useMigration;
+        !(toPopulasjoner && state.useMigration);
 }
 
 // ------------------------------------------------------------
@@ -342,7 +347,6 @@ function oppdaterInnstillingerFraState() {
     
     oppdaterPopulasjonsvisning();
 
-    oppdaterMigrasjonVisning();
 }
 
 
