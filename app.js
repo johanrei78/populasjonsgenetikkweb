@@ -13,7 +13,17 @@ const state = {
     // Startfrekvens for allel A₁
     p0: 0.5,
     p0_1: 0.5,
-    p0_2: 0.5
+    p0_2: 0.5,
+
+    // Fitness – populasjon 1
+    wAA_1: 1.0,
+    wAa_1: 1.0,
+    waa_1: 1.0,
+
+    // Fitness – populasjon 2
+    wAA_2: 1.0,
+    wAa_2: 1.0,
+    waa_2: 1.0
 };
 
 
@@ -44,6 +54,7 @@ const generationsInput =
 const generationsValue =
     document.getElementById("generations-value");
 
+
 // Antall populasjoner
 const numPopsInputs =
     document.querySelectorAll('input[name="num-pops"]');
@@ -64,6 +75,41 @@ const p01Input =
 
 const p02Input =
     document.getElementById("p0-2");
+
+
+// Fitness
+const fitnessEnPop =
+    document.getElementById("fitness-en-pop");
+
+const fitnessToPop =
+    document.getElementById("fitness-to-pop");
+
+const wAA1Input =
+    document.getElementById("wAA-1");
+
+const wAa1Input =
+    document.getElementById("wAa-1");
+
+const waa1Input =
+    document.getElementById("waa-1");
+
+const wAA1TwoInput =
+    document.getElementById("wAA-1-two");
+
+const wAa1TwoInput =
+    document.getElementById("wAa-1-two");
+
+const waa1TwoInput =
+    document.getElementById("waa-1-two");
+
+const wAA2Input =
+    document.getElementById("wAA-2");
+
+const wAa2Input =
+    document.getElementById("wAa-2");
+
+const waa2Input =
+    document.getElementById("waa-2");
 
 
 // ------------------------------------------------------------
@@ -100,15 +146,13 @@ knappResultater.addEventListener("click", () => {
 
 function oppdaterPopulasjonsvisning() {
 
-    if (state.numPops === 1) {
-        startfrekvensEnPop.hidden = false;
-        startfrekvensToPop.hidden = true;
-    }
+    const enPop = state.numPops === 1;
 
-    else {
-        startfrekvensEnPop.hidden = true;
-        startfrekvensToPop.hidden = false;
-    }
+    startfrekvensEnPop.hidden = !enPop;
+    startfrekvensToPop.hidden = enPop;
+
+    fitnessEnPop.hidden = !enPop;
+    fitnessToPop.hidden = enPop;
 }
 
 
@@ -136,8 +180,53 @@ function oppdaterInnstillingerFraState() {
     p02Input.value = state.p0_2;
 
 
-    // Vis riktig sett med innstillinger
+    // Fitness – populasjon 1
+    wAA1Input.value = state.wAA_1;
+    wAa1Input.value = state.wAa_1;
+    waa1Input.value = state.waa_1;
+
+    wAA1TwoInput.value = state.wAA_1;
+    wAa1TwoInput.value = state.wAa_1;
+    waa1TwoInput.value = state.waa_1;
+
+
+    // Fitness – populasjon 2
+    wAA2Input.value = state.wAA_2;
+    wAa2Input.value = state.wAa_2;
+    waa2Input.value = state.waa_2;
+
+
     oppdaterPopulasjonsvisning();
+}
+
+
+// ------------------------------------------------------------
+// HJELPEFUNKSJONER
+// ------------------------------------------------------------
+
+function oppdaterAllelfrekvens(input, stateKey) {
+
+    const value = Number(input.value);
+
+    if (value >= 0 && value <= 1) {
+        state[stateKey] = value;
+    }
+
+    input.value = state[stateKey];
+}
+
+
+function oppdaterFitness(input, stateKey) {
+
+    const value = Number(input.value);
+
+    if (value >= 0 && value <= 1) {
+        state[stateKey] = value;
+    }
+
+    input.value = state[stateKey];
+
+    oppdaterInnstillingerFraState();
 }
 
 
@@ -172,38 +261,59 @@ numPopsInputs.forEach(input => {
 });
 
 
-// ------------------------------------------------------------
-// HJELPEFUNKSJON FOR ALLELFREKVENSER
-// ------------------------------------------------------------
-
-function oppdaterAllelfrekvens(input, stateKey) {
-
-    const value = Number(input.value);
-
-    if (value >= 0 && value <= 1) {
-        state[stateKey] = value;
-    }
-
-    input.value = state[stateKey];
-}
-
-
-// ------------------------------------------------------------
-// ALLELFREKVENSER
-// ------------------------------------------------------------
-
+// Startfrekvens
 p0Input.addEventListener("change", () => {
     oppdaterAllelfrekvens(p0Input, "p0");
 });
-
 
 p01Input.addEventListener("change", () => {
     oppdaterAllelfrekvens(p01Input, "p0_1");
 });
 
-
 p02Input.addEventListener("change", () => {
     oppdaterAllelfrekvens(p02Input, "p0_2");
+});
+
+
+// Fitness – populasjon 1
+wAA1Input.addEventListener("change", () => {
+    oppdaterFitness(wAA1Input, "wAA_1");
+});
+
+wAa1Input.addEventListener("change", () => {
+    oppdaterFitness(wAa1Input, "wAa_1");
+});
+
+waa1Input.addEventListener("change", () => {
+    oppdaterFitness(waa1Input, "waa_1");
+});
+
+
+// Fitness – populasjon 1 i to-populasjonsvisningen
+wAA1TwoInput.addEventListener("change", () => {
+    oppdaterFitness(wAA1TwoInput, "wAA_1");
+});
+
+wAa1TwoInput.addEventListener("change", () => {
+    oppdaterFitness(wAa1TwoInput, "wAa_1");
+});
+
+waa1TwoInput.addEventListener("change", () => {
+    oppdaterFitness(waa1TwoInput, "waa_1");
+});
+
+
+// Fitness – populasjon 2
+wAA2Input.addEventListener("change", () => {
+    oppdaterFitness(wAA2Input, "wAA_2");
+});
+
+wAa2Input.addEventListener("change", () => {
+    oppdaterFitness(wAa2Input, "wAa_2");
+});
+
+waa2Input.addEventListener("change", () => {
+    oppdaterFitness(waa2Input, "waa_2");
 });
 
 
