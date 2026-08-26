@@ -183,6 +183,9 @@ const m12Input =
 const m21Input =
     document.getElementById("m21");
 
+const runSimulationButton =
+    document.getElementById("run-simulation");
+
 // ------------------------------------------------------------
 // NAVIGASJON
 // ------------------------------------------------------------
@@ -903,6 +906,48 @@ m21Input.addEventListener("change", () => {
     );
 });
 
+
+runSimulationButton.addEventListener("click", () => {
+
+    let resultat;
+
+    if (state.numPops === 1) {
+
+        resultat = simulateOnePopulationDeterministic({
+            p0: state.p0,
+
+            wAA: state.wAA_1,
+            wAa: state.wAa_1,
+            waa: state.waa_1,
+
+            mu: state.mu,
+            nu: state.nu,
+
+            generations: state.generations,
+
+            N: state.useDrift
+                ? state.N
+                : null,
+
+            bottleneckStart:
+                state.useDrift && state.useBottleneck
+                    ? state.bottleneckStart
+                    : null,
+
+            bottleneckDuration:
+                state.useDrift && state.useBottleneck
+                    ? state.bottleneckDuration
+                    : null,
+
+            bottleneckSize:
+                state.useDrift && state.useBottleneck
+                    ? state.bottleneckSize
+                    : null
+        });
+
+        console.log("Resultat én populasjon:", resultat);
+    }
+});
 
 // ------------------------------------------------------------
 // OPPSTART
