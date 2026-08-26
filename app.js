@@ -186,6 +186,13 @@ const m21Input =
 const runSimulationButton =
     document.getElementById("run-simulation");
 
+// Resultater
+const resultSection =
+    document.getElementById("resultater");
+
+const resultContent =
+    document.getElementById("resultat-innhold");
+
 // ------------------------------------------------------------
 // NAVIGASJON
 // ------------------------------------------------------------
@@ -954,6 +961,25 @@ runSimulationButton.addEventListener("click", () => {
 
         console.log("Resultat to populasjoner:", resultat);
     }
+    resultSection.hidden = false;
+
+    if (state.numPops === 1) {
+        const startFrequency = resultat.freqs[0];
+        const endFrequency =
+            resultat.freqs[resultat.freqs.length - 1];
+
+        resultContent.innerHTML = `
+            <p>
+                Startfrekvens A₁:
+                ${startFrequency.toFixed(3)}
+            </p>
+            <p>
+                Frekvens A₁ etter ${state.generations} generasjoner:
+                ${endFrequency.toFixed(3)}
+            </p>
+        `;
+    }
+    
 });
 
 // ------------------------------------------------------------
