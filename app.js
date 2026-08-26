@@ -337,6 +337,58 @@ nuInput.addEventListener("change", () => {
     oppdaterSannsynlighet(nuInput, "nu", 0.01);
 });
 
+// ------------------------------------------------------------
+// INFO-KNAPPER
+// ------------------------------------------------------------
+
+const infoKnapper =
+    document.querySelectorAll(".info-knapp");
+
+
+infoKnapper.forEach(knapp => {
+
+    knapp.addEventListener("click", () => {
+
+        const infoId =
+            knapp.getAttribute("aria-controls");
+
+        const infoTekst =
+            document.getElementById(infoId);
+
+        const erApen =
+            knapp.getAttribute("aria-expanded") === "true";
+
+
+        // Lukk eventuell åpen forklaring
+        infoKnapper.forEach(annenKnapp => {
+
+            const annenInfoId =
+                annenKnapp.getAttribute("aria-controls");
+
+            const annenInfo =
+                document.getElementById(annenInfoId);
+
+            annenKnapp.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+            annenInfo.hidden = true;
+        });
+
+
+        // Åpne valgt forklaring hvis den var lukket
+        if (!erApen) {
+
+            knapp.setAttribute(
+                "aria-expanded",
+                "true"
+            );
+
+            infoTekst.hidden = false;
+        }
+    });
+});
 
 // ------------------------------------------------------------
 // OPPSTART
