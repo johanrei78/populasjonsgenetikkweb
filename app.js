@@ -947,7 +947,7 @@ runSimulationButton.addEventListener("click", () => {
                 ? state.N
                 : null,
 
-            migrate: state.migrate,
+            migrate: state.useMigration,
             m12: state.m12,
             m21: state.m21
         });
