@@ -460,13 +460,13 @@ function simulateOnePopulationDeterministic({
 }
 
 const testResultat = simulateOnePopulationDeterministic({
-    p0: 0.5,
+    p0: 1.0,
     wAA: 1,
     wAa: 1,
-    waa: 0.5,
-    mu: 0,
+    waa: 1,
+    mu: 0.1,
     nu: 0,
-    generations: 10
+    generations: 5
 });
 
 console.log(testResultat);
