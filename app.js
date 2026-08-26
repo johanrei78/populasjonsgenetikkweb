@@ -501,21 +501,165 @@ function simulateOnePopulationDeterministic({
     };
 }
 
-const testResultat = simulateOnePopulationDeterministic({
-    p0: 0.5,
-    wAA: 1,
-    wAa: 1,
-    waa: 1,
+
+// ------------------------------------------------------------
+// SIMULERINGSMOTOR – To POPULASJONER
+// ------------------------------------------------------------
+
+function simulateTwoPopulations({
+    p0_1,
+    p0_2,
+    wAA_1,
+    wAa_1,
+    waa_1,
+    wAA_2,
+    wAa_2,
+    waa_2,
+    mu,
+    nu,
+    generations,
+    N = null
+}) {
+
+    let p1 = p0_1;
+    let p2 = p0_2;
+
+    const freqs = [];
+    const genotypes = [];
+
+    // Generasjon 0
+    freqs.push([p1, p2]);
+
+    genotypes.push([
+        {
+            AA: p1 * p1,
+            Aa: 2 * p1 * (1 - p1),
+            aa: (1 - p1) * (1 - p1)
+        },
+        {
+            AA: p2 * p2,
+            Aa: 2 * p2 * (1 - p2),
+            aa: (1 - p2) * (1 - p2)
+        }
+    ]);
+
+    for (let generation = 1; generation <= generations; generation++) {
+
+        const currentPs = [p1, p2];
+
+        const fitnessValues = [
+            {
+                wAA: wAA_1,
+                wAa: wAa_1,
+                waa: waa_1
+            },
+            {
+                wAA: wAA_2,
+                wAa: wAa_2,
+                waa: waa_2
+            }
+        ];
+
+        const nextPs = [];
+
+        for (let i = 0; i < 2; i++) {
+
+            const p = currentPs[i];
+            const fitness = fitnessValues[i];
+
+            // Hardy–Weinberg
+            const p2Current = p * p;
+            const pq = 2 * p * (1 - p);
+            const q2 = (1 - p) * (1 - p);
+
+            // Naturlig seleksjon
+            const meanFitness =
+                p2Current * fitness.wAA +
+                pq * fitness.wAa +
+                q2 * fitness.waa;
+
+            let pAfterSelection;
+
+            if (meanFitness === 0) {
+                pAfterSelection = p;
+            } else {
+                pAfterSelection =
+                    (
+                        p2Current * fitness.wAA +
+                        0.5 * pq * fitness.wAa
+                    ) / meanFitness;
+            }
+
+            // Mutasjon
+            const pAfterMutation =
+                pAfterSelection * (1 - mu) +
+                (1 - pAfterSelection) * nu;
+
+            // Eventuell genetisk drift
+            let pNext;
+
+            if (N !== null) {
+                const numberOfA1 = sampleBinomial(
+                    2 * N,
+                    pAfterMutation
+                );
+
+                pNext = numberOfA1 / (2 * N);
+            } else {
+                pNext = pAfterMutation;
+            }
+
+            // Sikre verdi mellom 0 og 1
+            pNext = Math.min(1, Math.max(0, pNext));
+
+            nextPs.push(pNext);
+        }
+
+        p1 = nextPs[0];
+        p2 = nextPs[1];
+
+        freqs.push([p1, p2]);
+
+        genotypes.push([
+            {
+                AA: p1 * p1,
+                Aa: 2 * p1 * (1 - p1),
+                aa: (1 - p1) * (1 - p1)
+            },
+            {
+                AA: p2 * p2,
+                Aa: 2 * p2 * (1 - p2),
+                aa: (1 - p2) * (1 - p2)
+            }
+        ]);
+    }
+
+    return {
+        freqs,
+        genotypes
+    };
+}
+
+const testResultatToPop = simulateTwoPopulations({
+    p0_1: 0.2,
+    p0_2: 0.8,
+
+    wAA_1: 1,
+    wAa_1: 1,
+    waa_1: 1,
+
+    wAA_2: 1,
+    wAa_2: 1,
+    waa_2: 1,
+
     mu: 0,
     nu: 0,
-    generations: 30,
-    N: 1000,
-    bottleneckStart: 10,
-    bottleneckDuration: 5,
-    bottleneckSize: 10
+
+    generations: 10,
+    N: null
 });
 
-console.log(testResultat);
+console.log(testResultatToPop);
 // ------------------------------------------------------------
 // EVENT-LYTTERE
 // ------------------------------------------------------------
