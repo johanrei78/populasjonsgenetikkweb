@@ -400,6 +400,9 @@ function simulateOnePopulationDeterministic({
     nu,
     generations,
     N = null
+    bottleneckStart = null,
+    bottleneckDuration = null,
+    bottleneckSize = null
 }) {
 
     let p = p0;
@@ -450,14 +453,29 @@ function simulateOnePopulationDeterministic({
             (1 - pAfterSelection) * nu;
 
 
-        // Genetisk drift
+        // Genetisk drift og eventuell flaskehals
         if (N !== null) {
+
+            let effectiveN = N;
+
+            const bottleneckActive =
+                bottleneckStart !== null &&
+                bottleneckDuration !== null &&
+                bottleneckSize !== null &&
+                generation >= bottleneckStart &&
+                generation < bottleneckStart + bottleneckDuration;
+
+            if (bottleneckActive) {
+            effectiveN = bottleneckSize;
+            }
+
             const numberOfA1 = sampleBinomial(
-                2 * N,
-                pAfterMutation
+            2 * effectiveN,
+            pAfterMutation
             );
 
-            p = numberOfA1 / (2 * N);
+            p = numberOfA1 / (2 * effectiveN);
+
         } else {
             p = pAfterMutation;
         }
@@ -490,12 +508,14 @@ const testResultat = simulateOnePopulationDeterministic({
     waa: 1,
     mu: 0,
     nu: 0,
-    generations: 20,
-    N: 20
+    generations: 30,
+    N: 1000,
+    bottleneckStart: 10,
+    bottleneckDuration: 5,
+    bottleneckSize: 10
 });
 
 console.log(testResultat);
-
 // ------------------------------------------------------------
 // EVENT-LYTTERE
 // ------------------------------------------------------------
