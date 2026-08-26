@@ -27,7 +27,11 @@ const state = {
 
     // Mutasjon
     mu: 0.0,
-    nu: 0.0
+    nu: 0.0,
+
+    // Genetisk drift
+    useDrift: false,
+    N: 100
 };
 
 
@@ -123,6 +127,15 @@ const muInput =
 const nuInput =
     document.getElementById("nu");
 
+// Genetisk drift
+const useDriftInput =
+    document.getElementById("use-drift");
+
+const driftInnstillinger =
+    document.getElementById("drift-innstillinger");
+
+const populationSizeInput =
+    document.getElementById("population-size");
 
 // ------------------------------------------------------------
 // NAVIGASJON
@@ -167,6 +180,15 @@ function oppdaterPopulasjonsvisning() {
     fitnessToPop.hidden = enPop;
 }
 
+// ------------------------------------------------------------
+// GENETISK DRIFT
+// ------------------------------------------------------------
+
+function oppdaterDriftVisning() {
+
+    driftInnstillinger.hidden =
+        !state.useDrift;
+}
 
 // ------------------------------------------------------------
 // OPPDATER GRENSESNITTET FRA STATE
@@ -213,6 +235,12 @@ function oppdaterInnstillingerFraState() {
     nuInput.value = state.nu;
 
 
+    // Genetisk drift
+    useDriftInput.checked = state.useDrift;
+    populationSizeInput.value = state.N;
+
+    oppdaterDriftVisning();
+    
     oppdaterPopulasjonsvisning();
 }
 
@@ -337,7 +365,31 @@ nuInput.addEventListener("change", () => {
     oppdaterSannsynlighet(nuInput, "nu", 0.01);
 });
 
+// Genetisk drift
+useDriftInput.addEventListener("change", () => {
 
+    state.useDrift =
+        useDriftInput.checked;
+
+    oppdaterDriftVisning();
+});
+
+
+populationSizeInput.addEventListener("change", () => {
+
+    const value =
+        Number(populationSizeInput.value);
+
+    if (
+        Number.isInteger(value) &&
+        value >= 10 &&
+        value <= 10000
+    ) {
+        state.N = value;
+    }
+
+    populationSizeInput.value = state.N;
+});
 
 // ------------------------------------------------------------
 // OPPSTART
