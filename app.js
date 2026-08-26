@@ -662,15 +662,13 @@ function simulateTwoPopulations({
 }
 
 const testResultatToPop = simulateTwoPopulations({
-    p0_1: 0.5,
-    p0_2: 0.5,
+    p0_1: 1.0,
+    p0_2: 0.0,
 
-    // Populasjon 1: seleksjon mot aa
     wAA_1: 1,
     wAa_1: 1,
-    waa_1: 0.5,
+    waa_1: 1,
 
-    // Populasjon 2: ingen seleksjon
     wAA_2: 1,
     wAa_2: 1,
     waa_2: 1,
@@ -678,8 +676,12 @@ const testResultatToPop = simulateTwoPopulations({
     mu: 0,
     nu: 0,
 
-    generations: 10,
-    N: null
+    generations: 5,
+    N: null,
+
+    migrate: true,
+    m12: 0.1,
+    m21: 0.1
 });
 
 console.log(testResultatToPop);
