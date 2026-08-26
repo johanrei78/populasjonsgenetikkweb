@@ -459,6 +459,18 @@ function simulateOnePopulationDeterministic({
     };
 }
 
+const testResultat = simulateOnePopulationDeterministic({
+    p0: 0.5,
+    wAA: 1,
+    wAa: 1,
+    waa: 1,
+    mu: 0,
+    nu: 0,
+    generations: 10
+});
+
+console.log(testResultat);
+
 // ------------------------------------------------------------
 // EVENT-LYTTERE
 // ------------------------------------------------------------
