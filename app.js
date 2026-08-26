@@ -41,6 +41,8 @@ const knappResultater =
 const generationsInput =
     document.getElementById("generations");
 
+const generationsValue =
+    document.getElementById("generations-value");
 
 // Antall populasjoner
 const numPopsInputs =
@@ -118,6 +120,7 @@ function oppdaterInnstillingerFraState() {
 
     // Tid
     generationsInput.value = state.generations;
+    generationsValue.textContent = state.generations;
 
 
     // Antall populasjoner
@@ -143,15 +146,13 @@ function oppdaterInnstillingerFraState() {
 // ------------------------------------------------------------
 
 // Antall generasjoner
-generationsInput.addEventListener("change", () => {
+generationsInput.addEventListener("input", () => {
 
-    const value = Number(generationsInput.value);
+    state.generations =
+        Number(generationsInput.value);
 
-    if (value >= 10 && value <= 500) {
-        state.generations = Math.round(value);
-    }
-
-    generationsInput.value = state.generations;
+    generationsValue.textContent =
+        state.generations;
 });
 
 
