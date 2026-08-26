@@ -664,30 +664,7 @@ function simulateTwoPopulations({
     };
 }
 
-const testResultatToPop = simulateTwoPopulations({
-    p0_1: 1.0,
-    p0_2: 0.0,
 
-    wAA_1: 1,
-    wAa_1: 1,
-    waa_1: 1,
-
-    wAA_2: 1,
-    wAa_2: 1,
-    waa_2: 1,
-
-    mu: 0,
-    nu: 0,
-
-    generations: 5,
-    N: null,
-
-    migrate: true,
-    m12: 0.1,
-    m21: 0.1
-});
-
-console.log(testResultatToPop);
 // ------------------------------------------------------------
 // EVENT-LYTTERE
 // ------------------------------------------------------------
