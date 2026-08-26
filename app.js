@@ -923,6 +923,36 @@ runSimulationButton.addEventListener("click", () => {
         });
 
         console.log("Resultat én populasjon:", resultat);
+
+    } else {
+
+        resultat = simulateTwoPopulations({
+            p0_1: state.p0_1,
+            p0_2: state.p0_2,
+
+            wAA_1: state.wAA_1,
+            wAa_1: state.wAa_1,
+            waa_1: state.waa_1,
+
+            wAA_2: state.wAA_2,
+            wAa_2: state.wAa_2,
+            waa_2: state.waa_2,
+
+            mu: state.mu,
+            nu: state.nu,
+
+            generations: state.generations,
+
+            N: state.useDrift
+                ? state.N
+                : null,
+
+            migrate: state.migrate,
+            m12: state.m12,
+            m21: state.m21
+        });
+
+        console.log("Resultat to populasjoner:", resultat);
     }
 });
 
