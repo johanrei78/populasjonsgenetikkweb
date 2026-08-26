@@ -340,9 +340,26 @@
                     <legend>Mutasjon</legend>
 
                     <div class="fitness-rad">
-                        <label for="mu">
-                            Mutasjonsrate A₁ → A₂
-                        </label>
+                        <div class="label-med-info">
+                            <label for="mu">
+                                Mutasjonsrate A₁ → A₂
+                            </label>
+
+                            <button
+                                type="button"
+                                class="info-knapp"
+                                aria-label="Forklaring av mutasjonsrate A₁ til A₂"
+                                aria-expanded="false"
+                                aria-controls="info-mu"
+                            >
+                                ?
+                            </button>
+                        </div>
+
+                        <div id="info-mu" class="info-tekst" hidden>
+                            Sannsynligheten per generasjon for at A₁ muterer til A₂.
+                            Mutasjonsrater er ofte svært små, for eksempel 0,000001.
+                        </div>
 
                         <input
                             class="tallfelt"
@@ -356,9 +373,26 @@
                     </div>
 
                     <div class="fitness-rad">
-                        <label for="nu">
-                            Mutasjonsrate A₂ → A₁
-                        </label>
+                        <div class="label-med-info">
+                            <label for="nu">
+                                Mutasjonsrate A₂ → A₁
+                            </label>
+
+                            <button
+                                type="button"
+                                class="info-knapp"
+                                aria-label="Forklaring av mutasjonsrate A₂ til A₁"
+                                aria-expanded="false"
+                                aria-controls="info-nu"
+                            >
+                                ?
+                            </button>
+                        </div>
+
+                        <div id="info-nu" class="info-tekst" hidden>
+                            Sannsynligheten per generasjon for at A₂ muterer til A₁.
+                            Mutasjonsrater er ofte svært små, for eksempel 0,000001.
+                        </div>
 
                         <input
                             class="tallfelt"
