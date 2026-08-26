@@ -961,7 +961,7 @@ runSimulationButton.addEventListener("click", () => {
 
         console.log("Resultat to populasjoner:", resultat);
     }
-    resultSection.hidden = false;
+    
 
     if (state.numPops === 1) {
         const startFrequency = resultat.freqs[0];
@@ -979,6 +979,7 @@ runSimulationButton.addEventListener("click", () => {
             </p>
         `;
     }
+    visSide("resultater");
     
 });
 
