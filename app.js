@@ -355,37 +355,24 @@ infoKnapper.forEach(knapp => {
         const infoTekst =
             document.getElementById(infoId);
 
-        const erApen =
-            knapp.getAttribute("aria-expanded") === "true";
+        const skalApnes =
+            !infoTekst.classList.contains("vis");
 
 
-        // Lukk eventuell åpen forklaring
-        infoKnapper.forEach(annenKnapp => {
+        // Lukk alle forklaringer først
+        document.querySelectorAll(".info-tekst").forEach(info => {
+            info.classList.remove("vis");
+        });
 
-            const annenInfoId =
-                annenKnapp.getAttribute("aria-controls");
-
-            const annenInfo =
-                document.getElementById(annenInfoId);
-
-            annenKnapp.setAttribute(
-                "aria-expanded",
-                "false"
-            );
-
-            annenInfo.hidden = true;
+        infoKnapper.forEach(k => {
+            k.setAttribute("aria-expanded", "false");
         });
 
 
-        // Åpne valgt forklaring hvis den var lukket
-        if (!erApen) {
-
-            knapp.setAttribute(
-                "aria-expanded",
-                "true"
-            );
-
-            infoTekst.hidden = false;
+        // Åpne den valgte hvis den var lukket
+        if (skalApnes) {
+            infoTekst.classList.add("vis");
+            knapp.setAttribute("aria-expanded", "true");
         }
     });
 });
