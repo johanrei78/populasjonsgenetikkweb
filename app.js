@@ -463,7 +463,7 @@ const testResultat = simulateOnePopulationDeterministic({
     p0: 0.5,
     wAA: 1,
     wAa: 1,
-    waa: 1,
+    waa: 0.5,
     mu: 0,
     nu: 0,
     generations: 10
