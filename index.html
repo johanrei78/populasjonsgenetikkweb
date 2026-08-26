@@ -90,7 +90,6 @@
                 <fieldset class="innstillingsgruppe">
                     <legend>Startfrekvens A₁</legend>
 
-                    <!-- Én populasjon -->
                     <div id="startfrekvens-en-pop">
 
                         <label for="p0">
@@ -110,7 +109,6 @@
                     </div>
 
 
-                    <!-- To populasjoner -->
                     <div id="startfrekvens-to-pop" hidden>
 
                         <div class="to-pop-grid">
@@ -162,7 +160,6 @@
                 <fieldset class="innstillingsgruppe">
                     <legend>Naturlig seleksjon</legend>
 
-                    <!-- Én populasjon -->
                     <div id="fitness-en-pop">
 
                         <div class="fitness-rad">
@@ -181,7 +178,6 @@
                             >
                         </div>
 
-
                         <div class="fitness-rad">
                             <label for="wAa-1">
                                 Fitness A₁A₂
@@ -197,7 +193,6 @@
                                 value="1"
                             >
                         </div>
-
 
                         <div class="fitness-rad">
                             <label for="waa-1">
@@ -218,7 +213,6 @@
                     </div>
 
 
-                    <!-- To populasjoner -->
                     <div id="fitness-to-pop" hidden>
 
                         <div class="to-pop-grid">
@@ -242,7 +236,6 @@
                                     >
                                 </div>
 
-
                                 <div class="fitness-rad">
                                     <label for="wAa-1-two">
                                         Fitness A₁A₂
@@ -258,7 +251,6 @@
                                         value="1"
                                     >
                                 </div>
-
 
                                 <div class="fitness-rad">
                                     <label for="waa-1-two">
@@ -298,7 +290,6 @@
                                     >
                                 </div>
 
-
                                 <div class="fitness-rad">
                                     <label for="wAa-2">
                                         Fitness A₁A₂
@@ -314,7 +305,6 @@
                                         value="1"
                                     >
                                 </div>
-
 
                                 <div class="fitness-rad">
                                     <label for="waa-2">
@@ -339,6 +329,51 @@
                     </div>
 
                 </fieldset>
+
+            </div>
+
+
+            <!-- MUTASJON -->
+            <div class="parameter-grid">
+
+                <fieldset class="innstillingsgruppe">
+                    <legend>Mutasjon</legend>
+
+                    <div class="fitness-rad">
+                        <label for="mu">
+                            Mutasjonsrate A₁ → A₂
+                        </label>
+
+                        <input
+                            class="tallfelt"
+                            type="number"
+                            id="mu"
+                            min="0"
+                            max="0.01"
+                            step="0.000001"
+                            value="0"
+                        >
+                    </div>
+
+                    <div class="fitness-rad">
+                        <label for="nu">
+                            Mutasjonsrate A₂ → A₁
+                        </label>
+
+                        <input
+                            class="tallfelt"
+                            type="number"
+                            id="nu"
+                            min="0"
+                            max="0.01"
+                            step="0.000001"
+                            value="0"
+                        >
+                    </div>
+
+                </fieldset>
+
+                <div></div>
 
             </div>
 
