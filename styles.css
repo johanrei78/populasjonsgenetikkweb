@@ -224,6 +224,9 @@ input[type="range"] {
 
 
 .info-tekst {
+   
+    display: none;
+   
     max-width: 28rem;
     margin: 0.25rem 0 0.75rem;
     padding: 0.65rem 0.75rem;
