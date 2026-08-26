@@ -23,7 +23,11 @@ const state = {
     // Fitness – populasjon 2
     wAA_2: 1.0,
     wAa_2: 1.0,
-    waa_2: 1.0
+    waa_2: 1.0,
+
+    // Mutasjon
+    mu: 0.0,
+    nu: 0.0
 };
 
 
@@ -112,6 +116,14 @@ const waa2Input =
     document.getElementById("waa-2");
 
 
+// Mutasjon
+const muInput =
+    document.getElementById("mu");
+
+const nuInput =
+    document.getElementById("nu");
+
+
 // ------------------------------------------------------------
 // NAVIGASJON
 // ------------------------------------------------------------
@@ -196,6 +208,11 @@ function oppdaterInnstillingerFraState() {
     waa2Input.value = state.waa_2;
 
 
+    // Mutasjon
+    muInput.value = state.mu;
+    nuInput.value = state.nu;
+
+
     oppdaterPopulasjonsvisning();
 }
 
@@ -204,11 +221,11 @@ function oppdaterInnstillingerFraState() {
 // HJELPEFUNKSJONER
 // ------------------------------------------------------------
 
-function oppdaterAllelfrekvens(input, stateKey) {
+function oppdaterSannsynlighet(input, stateKey, maxValue = 1) {
 
     const value = Number(input.value);
 
-    if (value >= 0 && value <= 1) {
+    if (value >= 0 && value <= maxValue) {
         state[stateKey] = value;
     }
 
@@ -218,13 +235,7 @@ function oppdaterAllelfrekvens(input, stateKey) {
 
 function oppdaterFitness(input, stateKey) {
 
-    const value = Number(input.value);
-
-    if (value >= 0 && value <= 1) {
-        state[stateKey] = value;
-    }
-
-    input.value = state[stateKey];
+    oppdaterSannsynlighet(input, stateKey, 1);
 
     oppdaterInnstillingerFraState();
 }
@@ -263,15 +274,15 @@ numPopsInputs.forEach(input => {
 
 // Startfrekvens
 p0Input.addEventListener("change", () => {
-    oppdaterAllelfrekvens(p0Input, "p0");
+    oppdaterSannsynlighet(p0Input, "p0");
 });
 
 p01Input.addEventListener("change", () => {
-    oppdaterAllelfrekvens(p01Input, "p0_1");
+    oppdaterSannsynlighet(p01Input, "p0_1");
 });
 
 p02Input.addEventListener("change", () => {
-    oppdaterAllelfrekvens(p02Input, "p0_2");
+    oppdaterSannsynlighet(p02Input, "p0_2");
 });
 
 
@@ -314,6 +325,16 @@ wAa2Input.addEventListener("change", () => {
 
 waa2Input.addEventListener("change", () => {
     oppdaterFitness(waa2Input, "waa_2");
+});
+
+
+// Mutasjon
+muInput.addEventListener("change", () => {
+    oppdaterSannsynlighet(muInput, "mu", 0.01);
+});
+
+nuInput.addEventListener("change", () => {
+    oppdaterSannsynlighet(nuInput, "nu", 0.01);
 });
 
 
