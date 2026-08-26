@@ -31,7 +31,13 @@ const state = {
 
     // Genetisk drift
     useDrift: false,
-    N: 100
+    N: 100,
+
+    // Flaskehals
+    useBottleneck: false,
+    bottleneckStart: 20,
+    bottleneckDuration: 10,
+    bottleneckSize: 20
 };
 
 
@@ -137,6 +143,25 @@ const driftInnstillinger =
 const populationSizeInput =
     document.getElementById("population-size");
 
+// Flaskehals
+const flaskehalsSeksjon =
+    document.getElementById("flaskehals-seksjon");
+
+const useBottleneckInput =
+    document.getElementById("use-bottleneck");
+
+const flaskehalsInnstillinger =
+    document.getElementById("flaskehals-innstillinger");
+
+const bottleneckStartInput =
+    document.getElementById("bottleneck-start");
+
+const bottleneckDurationInput =
+    document.getElementById("bottleneck-duration");
+
+const bottleneckSizeInput =
+    document.getElementById("bottleneck-size");
+
 // ------------------------------------------------------------
 // NAVIGASJON
 // ------------------------------------------------------------
@@ -178,6 +203,8 @@ function oppdaterPopulasjonsvisning() {
 
     fitnessEnPop.hidden = !enPop;
     fitnessToPop.hidden = enPop;
+
+    oppdaterDriftVisning();
 }
 
 // ------------------------------------------------------------
@@ -186,8 +213,19 @@ function oppdaterPopulasjonsvisning() {
 
 function oppdaterDriftVisning() {
 
+    // Driftinnstillingene vises bare når drift er aktivert
     driftInnstillinger.hidden =
         !state.useDrift;
+
+
+    // Flaskehals er bare tilgjengelig ved én populasjon
+    flaskehalsSeksjon.hidden =
+        state.numPops !== 1;
+
+
+    // Detaljene vises bare når flaskehals er aktivert
+    flaskehalsInnstillinger.hidden =
+        !state.useBottleneck;
 }
 
 // ------------------------------------------------------------
@@ -238,6 +276,21 @@ function oppdaterInnstillingerFraState() {
     // Genetisk drift
     useDriftInput.checked = state.useDrift;
     populationSizeInput.value = state.N;
+
+
+    // Flaskehals
+    useBottleneckInput.checked =
+        state.useBottleneck;
+
+    bottleneckStartInput.value =
+        state.bottleneckStart;
+
+    bottleneckDurationInput.value =
+        state.bottleneckDuration;
+
+    bottleneckSizeInput.value =
+        state.bottleneckSize;
+
 
     oppdaterDriftVisning();
     
@@ -390,6 +443,71 @@ populationSizeInput.addEventListener("change", () => {
 
     populationSizeInput.value = state.N;
 });
+
+// Flaskehals av/på
+useBottleneckInput.addEventListener("change", () => {
+
+    state.useBottleneck =
+        useBottleneckInput.checked;
+
+    oppdaterDriftVisning();
+});
+
+
+// Startgenerasjon
+bottleneckStartInput.addEventListener("change", () => {
+
+    const value =
+        Number(bottleneckStartInput.value);
+
+    if (
+        Number.isInteger(value) &&
+        value >= 1
+    ) {
+        state.bottleneckStart = value;
+    }
+
+    bottleneckStartInput.value =
+        state.bottleneckStart;
+});
+
+
+// Varighet
+bottleneckDurationInput.addEventListener("change", () => {
+
+    const value =
+        Number(bottleneckDurationInput.value);
+
+    if (
+        Number.isInteger(value) &&
+        value >= 1
+    ) {
+        state.bottleneckDuration = value;
+    }
+
+    bottleneckDurationInput.value =
+        state.bottleneckDuration;
+});
+
+
+// Populasjonsstørrelse under flaskehals
+bottleneckSizeInput.addEventListener("change", () => {
+
+    const value =
+        Number(bottleneckSizeInput.value);
+
+    if (
+        Number.isInteger(value) &&
+        value >= 2 &&
+        value <= 10000
+    ) {
+        state.bottleneckSize = value;
+    }
+
+    bottleneckSizeInput.value =
+        state.bottleneckSize;
+});
+
 
 // ------------------------------------------------------------
 // OPPSTART
