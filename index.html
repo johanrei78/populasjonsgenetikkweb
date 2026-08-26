@@ -407,11 +407,14 @@
                         <input
                             type="checkbox"
                             id="use-drift"
-                        >
+                    >
                     Inkluder genetisk drift
-                    </label>
+                </label>
 
-                    <div id="drift-innstillinger" hidden>
+
+                <div id="drift-innstillinger" hidden>
+
+                    <div class="fitness-rad">
                         <label for="population-size">
                             Populasjonsstørrelse (N)
                         </label>
@@ -427,7 +430,76 @@
                         >
                     </div>
 
-                </fieldset>
+
+                    <!-- FLASKEHALS -->
+                    <div id="flaskehals-seksjon">
+
+                        <label class="drift-valg">
+                            <input
+                                type="checkbox"
+                                id="use-bottleneck"
+                            >
+                            Inkluder flaskehals
+                        </label>
+
+
+                        <div id="flaskehals-innstillinger" hidden>
+
+                            <div class="fitness-rad">
+                                <label for="bottleneck-start">
+                                    Startgenerasjon
+                                </label>
+
+                                <input
+                                    class="tallfelt"
+                                    type="number"
+                                    id="bottleneck-start"
+                                    min="1"
+                                    step="1"
+                                    value="20"
+                                >
+                            </div>
+
+
+                            <div class="fitness-rad">
+                                <label for="bottleneck-duration">
+                                    Varighet (generasjoner)
+                                </label>
+
+                                <input
+                                    class="tallfelt"
+                                    type="number"
+                                    id="bottleneck-duration"
+                                    min="1"
+                                    step="1"
+                                    value="10"
+                                >
+                            </div>
+
+
+                            <div class="fitness-rad">
+                                <label for="bottleneck-size">
+                                    Populasjonsstørrelse under flaskehals
+                                </label>
+
+                                <input
+                                    class="tallfelt"
+                                    type="number"
+                                    id="bottleneck-size"
+                                    min="2"
+                                    max="10000"
+                                    step="1"
+                                    value="20"
+                                >
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </fieldset>
 
             </div>
 
