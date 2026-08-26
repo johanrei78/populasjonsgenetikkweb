@@ -518,7 +518,10 @@ function simulateTwoPopulations({
     mu,
     nu,
     generations,
-    N = null
+    N = null,
+    migrate = false,
+    m12 = 0,
+    m21 = 0
 }) {
 
     let p1 = p0_1;
@@ -617,6 +620,24 @@ function simulateTwoPopulations({
 
         p1 = nextPs[0];
         p2 = nextPs[1];
+
+        // Genflyt mellom populasjonene
+        if (migrate) {
+            const p1BeforeMigration = p1;
+            const p2BeforeMigration = p2;
+
+            p1 =
+                (1 - m21) * p1BeforeMigration +
+                m21 * p2BeforeMigration;
+
+            p2 =
+                (1 - m12) * p2BeforeMigration +
+                m12 * p1BeforeMigration;
+        }
+
+        // Sikre verdier mellom 0 og 1
+        p1 = Math.min(1, Math.max(0, p1));
+        p2 = Math.min(1, Math.max(0, p2));
 
         freqs.push([p1, p2]);
 
