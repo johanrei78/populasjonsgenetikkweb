@@ -186,6 +186,10 @@ const m21Input =
 const runSimulationButton =
     document.getElementById("run-simulation");
 
+
+const validationMessage =
+    document.getElementById("valideringsmelding");
+
 // Resultater
 const resultSection =
     document.getElementById("resultater");
@@ -1325,6 +1329,8 @@ function visParameteroppsummering(params) {
 
 function validerFlaskehals() {
 
+    validationMessage.textContent = "";
+
     if (
         state.numPops !== 1 ||
         !state.useDrift ||
@@ -1334,7 +1340,8 @@ function validerFlaskehals() {
     }
 
     if (state.bottleneckStart >= state.generations) {
-        alert("Startgenerasjonen for flaskehalsen må være mindre enn antall generasjoner.");
+        validationMessage.textContent =
+            "Startgenerasjonen for flaskehalsen må være mindre enn antall generasjoner.";
         return false;
     }
 
@@ -1342,18 +1349,19 @@ function validerFlaskehals() {
         state.bottleneckStart + state.bottleneckDuration >
         state.generations
     ) {
-        alert("Flaskehalsens varighet går forbi siste generasjon.");
+        validationMessage.textContent =
+            "Flaskehalsens varighet går forbi siste generasjon.";
         return false;
     }
 
     if (state.bottleneckSize > state.N) {
-        alert("Populasjonsstørrelsen under flaskehalsen kan ikke være større enn vanlig populasjonsstørrelse.");
+        validationMessage.textContent =
+            "Populasjonsstørrelsen under flaskehalsen kan ikke være større enn vanlig populasjonsstørrelse.";
         return false;
     }
 
     return true;
 }
-
 // ------------------------------------------------------------
 // EVENT-LYTTERE
 // ------------------------------------------------------------
