@@ -1161,6 +1161,14 @@ runSimulationButton.addEventListener("click", () => {
         generationReadoutInput.value = 0;
         generationReadoutResult.textContent = "";
 
+        const alleleViewInput = document.querySelector(
+            'input[name="resultatvisning"][value="alleler"]'
+        );
+
+        if (alleleViewInput) {
+            alleleViewInput.checked = true;
+        }
+        
         visAllelfrekvensEnPopulasjon(resultat);
     }
     visSide("resultater");
