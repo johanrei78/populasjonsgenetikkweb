@@ -1197,11 +1197,24 @@ generationReadoutButton.addEventListener("click", () => {
         return;
     }
 
-    const frequency =
-        sisteResultat.freqs[generation];
+    const visning = hentResultatvisning();
 
-    generationReadoutResult.textContent =
-        `I generasjon ${generation} er frekvensen av A₁ ${frequency.toFixed(3)}.`;
+    if (visning === "alleler") {
+
+        const frequency =
+            sisteResultat.freqs[generation];
+
+        generationReadoutResult.textContent =
+            `I generasjon ${generation} er frekvensen av A₁ ${frequency.toFixed(3)}.`;
+
+    } else {
+
+        const genotype =
+            sisteResultat.genotypes[generation];
+
+        generationReadoutResult.textContent =
+            `I generasjon ${generation} er frekvensene A₁A₁: ${genotype.AA.toFixed(3)}, A₁A₂: ${genotype.Aa.toFixed(3)} og A₂A₂: ${genotype.aa.toFixed(3)}.`;
+    }
 });
 
 //RESULTATVISNING
