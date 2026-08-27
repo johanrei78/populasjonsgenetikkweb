@@ -196,6 +196,15 @@ const resultContent =
 const alleleGraph =
     document.getElementById("allelgraf");
 
+const generationReadoutInput =
+    document.getElementById("avlesning-generasjon");
+
+const generationReadoutButton =
+    document.getElementById("les-av-generasjon");
+
+const generationReadoutResult =
+    document.getElementById("avlesning-resultat");
+
 // ------------------------------------------------------------
 // NAVIGASJON
 // ------------------------------------------------------------
@@ -736,6 +745,9 @@ function visAllelfrekvensEnPopulasjon(resultat) {
     );
 }
 
+
+let sisteResultat = null;
+
 // ------------------------------------------------------------
 // EVENT-LYTTERE
 // ------------------------------------------------------------
@@ -1025,7 +1037,8 @@ runSimulationButton.addEventListener("click", () => {
 
         console.log("Resultat to populasjoner:", resultat);
     }
-    
+
+    sisteResultat = resultat;
 
     if (state.numPops === 1) {
         const startFrequency = resultat.freqs[0];
@@ -1042,6 +1055,9 @@ runSimulationButton.addEventListener("click", () => {
                 ${endFrequency.toFixed(3)}
             </p>
         `;
+        generationReadoutInput.max = state.generations;
+        generationReadoutInput.value = 0;
+        generationReadoutResult.textContent = "";
 
         visAllelfrekvensEnPopulasjon(resultat);
     }
@@ -1049,6 +1065,32 @@ runSimulationButton.addEventListener("click", () => {
     
 });
 
+generationReadoutButton.addEventListener("click", () => {
+
+    if (!sisteResultat || state.numPops !== 1) {
+        return;
+    }
+
+    const generation =
+        Number(generationReadoutInput.value);
+
+    if (
+        !Number.isInteger(generation) ||
+        generation < 0 ||
+        generation >= sisteResultat.freqs.length
+    ) {
+        generationReadoutResult.textContent =
+            `Skriv inn en generasjon mellom 0 og ${sisteResultat.freqs.length - 1}.`;
+
+        return;
+    }
+
+    const frequency =
+        sisteResultat.freqs[generation];
+
+    generationReadoutResult.textContent =
+        `I generasjon ${generation} er frekvensen av A₁ ${frequency.toFixed(3)}.`;
+});
 
 // ------------------------------------------------------------
 // OPPSTART
