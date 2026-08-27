@@ -700,6 +700,13 @@ function simulateTwoPopulations({
 // FIGUR ALLELFREKVENS
 // ------------------------------------------------------------
 
+const alleleViewInput =
+    document.querySelector(
+        'input[name="resultatvisning"][value="alleler"]'
+    );
+
+alleleViewInput.checked = true;
+
 function visAllelfrekvensEnPopulasjon(resultat) {
 
     const generasjoner =
@@ -758,6 +765,88 @@ function visAllelfrekvensEnPopulasjon(resultat) {
     );
 }
 
+function visGenotypefrekvenserEnPopulasjon(resultat) {
+
+    const generasjoner =
+        resultat.genotypes.map((_, index) => index);
+
+    const frekvensAA =
+        resultat.genotypes.map(genotype => genotype.AA);
+
+    const frekvensAa =
+        resultat.genotypes.map(genotype => genotype.Aa);
+
+    const frekvensaa =
+        resultat.genotypes.map(genotype => genotype.aa);
+
+    const data = [
+        {
+            x: generasjoner,
+            y: frekvensAA,
+            type: "scatter",
+            mode: "lines",
+            name: "A₁A₁",
+            hovertemplate:
+                "Generasjon %{x}<br>Frekvens A₁A₁: %{y:.3f}<extra></extra>"
+        },
+        {
+            x: generasjoner,
+            y: frekvensAa,
+            type: "scatter",
+            mode: "lines",
+            name: "A₁A₂",
+            hovertemplate:
+                "Generasjon %{x}<br>Frekvens A₁A₂: %{y:.3f}<extra></extra>"
+        },
+        {
+            x: generasjoner,
+            y: frekvensaa,
+            type: "scatter",
+            mode: "lines",
+            name: "A₂A₂",
+            hovertemplate:
+                "Generasjon %{x}<br>Frekvens A₂A₂: %{y:.3f}<extra></extra>"
+        }
+    ];
+
+    const layout = {
+        title: {
+            text: "Genotypefrekvenser"
+        },
+        xaxis: {
+            title: {
+                text: "Generasjon"
+            },
+            fixedrange: true
+        },
+        yaxis: {
+            title: {
+                text: "Frekvens"
+            },
+            range: [0, 1],
+            fixedrange: true
+        },
+        margin: {
+            l: 60,
+            r: 20,
+            t: 60,
+            b: 60
+        }
+    };
+
+    const config = {
+        responsive: true,
+        displayModeBar: false,
+        scrollZoom: false
+    };
+
+    Plotly.newPlot(
+        alleleGraph,
+        data,
+        layout,
+        config
+    );
+}
 
 let sisteResultat = null;
 
@@ -1108,12 +1197,21 @@ generationReadoutButton.addEventListener("click", () => {
 });
 
 //RESULTATVISNING
+
 resultViewInputs.forEach(input => {
     input.addEventListener("change", () => {
-        console.log(
-            "Valgt resultatvisning:",
-            hentResultatvisning()
-        );
+
+        if (!sisteResultat || state.numPops !== 1) {
+            return;
+        }
+
+        const visning = hentResultatvisning();
+
+        if (visning === "alleler") {
+            visAllelfrekvensEnPopulasjon(sisteResultat);
+        } else {
+            visGenotypefrekvenserEnPopulasjon(sisteResultat);
+        }
     });
 });
 
