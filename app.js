@@ -714,12 +714,15 @@ function visAllelfrekvensEnPopulasjon(resultat) {
 
     const frekvenser = resultat.freqs;
 
+    const allelFarge = "#1f77b4";
+    
     const data = [
         {
             x: generasjoner,
             y: frekvenser,
             type: "scatter",
             mode: "lines",
+            ine: { color: allelFarge },
             name: "A₁",
             hovertemplate:
                 "Generasjon %{x}<br>Frekvens A₁: %{y:.3f}<extra></extra>"
