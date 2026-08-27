@@ -839,7 +839,7 @@ function visGenotypefrekvenserEnPopulasjon(resultat) {
             b: 60
         },
 
-        height: smalSkjerm ? 700 : 450,
+      
     };
 
     const config = {
