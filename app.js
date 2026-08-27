@@ -869,6 +869,7 @@ function visAllelfrekvensToPopulasjoner(resultat) {
             type: "scatter",
             mode: "lines",
             name: "A₁",
+            showlegend: false,
             xaxis: "x",
             yaxis: "y",
             hovertemplate:
@@ -1262,6 +1263,8 @@ runSimulationButton.addEventListener("click", () => {
 
     sisteResultat = resultat;
 
+    visSide("resultater");
+    
     if (state.numPops === 1) {
         const startFrequency = resultat.freqs[0];
         const endFrequency =
@@ -1308,7 +1311,7 @@ runSimulationButton.addEventListener("click", () => {
         visAllelfrekvensToPopulasjoner(resultat);
     }
     
-    visSide("resultater");
+
     
 });
 
