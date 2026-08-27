@@ -865,6 +865,8 @@ function visAllelfrekvensToPopulasjoner(resultat) {
         resultat.freqs.map(frekvenser => frekvenser[1]);
 
     const smalSkjerm = window.innerWidth <= 600;
+
+    const allelFarge = "#1f77b4";
     
     const data = [
         {
@@ -874,6 +876,7 @@ function visAllelfrekvensToPopulasjoner(resultat) {
             mode: "lines",
             name: "A₁",
             showlegend: false,
+            line: { color: allelFarge },
             xaxis: "x",
             yaxis: "y",
             hovertemplate:
@@ -886,6 +889,7 @@ function visAllelfrekvensToPopulasjoner(resultat) {
             mode: "lines",
             name: "A₁",
             showlegend: false,
+            line: { color: allelFarge },
             xaxis: "x2",
             yaxis: "y2",
             hovertemplate:
@@ -1022,7 +1026,11 @@ function visGenotypefrekvenserToPopulasjoner(resultat) {
     const aa_pop2 =
         resultat.genotypes.map(rad => rad[1].aa);
 
-    const genotypeFarger = Plotly.d3.schemeCategory10;
+    const genotypeFarger = [
+        "#0072B2", // A₁A₁
+        "#E69F00", // A₁A₂
+        "#009E73"  // A₂A₂
+    ];
     
     const data = [
         {
