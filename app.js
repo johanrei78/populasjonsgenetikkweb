@@ -1616,20 +1616,6 @@ runSimulationButton.addEventListener("click", () => {
     visSide("resultater");
     
     if (state.numPops === 1) {
-        const startFrequency = resultat.freqs[0];
-        const endFrequency =
-            resultat.freqs[resultat.freqs.length - 1];
-
-        resultContent.innerHTML = `
-            <p>
-                Startfrekvens A₁:
-                ${startFrequency.toFixed(3)}
-            </p>
-            <p>
-                Frekvens A₁ etter ${state.generations} generasjoner:
-                ${endFrequency.toFixed(3)}
-            </p>
-        `;
         generationReadoutInput.max = state.generations;
         generationReadoutInput.value = 0;
         generationReadoutResult.textContent = "";
