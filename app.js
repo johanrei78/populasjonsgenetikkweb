@@ -898,17 +898,13 @@ function visAllelfrekvensToPopulasjoner(resultat) {
             text: "Allelfrekvens A₁"
         },
 
-        grid: {
-            rows: smalSkjerm ? 2 : 1,
-            columns: smalSkjerm ? 1 : 2,
-            pattern: "independent"
-        },
 
         xaxis: {
             title: {
                 text: "Generasjon"
             },
-            fixedrange: true
+            fixedrange: true,
+            domain: smalSkjerm ? [0, 1] : [0, 0.45]
         },
 
         yaxis: {
@@ -916,19 +912,25 @@ function visAllelfrekvensToPopulasjoner(resultat) {
                 text: "Frekvens"
             },
             range: [0, 1],
-            fixedrange: true
+            fixedrange: true,
+            domain: smalSkjerm ? [0.57, 1] : [0, 1]
         },
 
         xaxis2: {
             title: {
                 text: "Generasjon"
             },
-            fixedrange: true
+            fixedrange: true,
+            domain: smalSkjerm ? [0, 1] : [0.55, 1]
         },
 
         yaxis2: {
+            title: smalSkjerm
+                ? { text: "Frekvens" }
+                : undefined,
             range: [0, 1],
-            fixedrange: true
+            fixedrange: true,
+            domain: smalSkjerm ? [0, 0.43] : [0, 1]
         },
 
         annotations: smalSkjerm
