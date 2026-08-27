@@ -921,6 +921,7 @@ function visAllelfrekvensToPopulasjoner(resultat) {
                 text: "Generasjon"
             },
             fixedrange: true,
+            anchor: "y2",
             domain: smalSkjerm ? [0, 1] : [0.55, 1]
         },
 
@@ -930,6 +931,7 @@ function visAllelfrekvensToPopulasjoner(resultat) {
             },    
             range: [0, 1],
             fixedrange: true,
+            anchor: "x2",
             showticklabels: true,
             ticks: "outside",
             domain: smalSkjerm ? [0, 0.43] : [0, 1]
