@@ -1774,64 +1774,127 @@ window.addEventListener("resize", () => {
 
 extendSimulationButton.addEventListener("click", () => {
 
-    if (
-        !sisteResultat ||
-        !sisteParametere ||
-        sisteParametere.numPops !== 1
-    ) {
+    if (!sisteResultat || !sisteParametere) {
         return;
     }
 
-    const sisteFrekvens =
-        sisteResultat.freqs[sisteResultat.freqs.length - 1];
+    if (sisteParametere.numPops === 1) {
 
-    const ekstraResultat =
-        simulateOnePopulationDeterministic({
-            p0: sisteFrekvens,
+        // ----------------------------------------
+        // ÉN POPULASJON
+        // ----------------------------------------
 
-            wAA: sisteParametere.wAA_1,
-            wAa: sisteParametere.wAa_1,
-            waa: sisteParametere.waa_1,
+        const sisteFrekvens =
+            sisteResultat.freqs[sisteResultat.freqs.length - 1];
 
-            mu: sisteParametere.mu,
-            nu: sisteParametere.nu,
+        const ekstraResultat =
+            simulateOnePopulationDeterministic({
+                p0: sisteFrekvens,
 
-            generations: 100,
+                wAA: sisteParametere.wAA_1,
+                wAa: sisteParametere.wAa_1,
+                waa: sisteParametere.waa_1,
 
-            N: sisteParametere.useDrift
-                ? sisteParametere.N
-                : null,
+                mu: sisteParametere.mu,
+                nu: sisteParametere.nu,
 
-            // En eventuell flaskehals gjentas ikke
-            bottleneckStart: null,
-            bottleneckDuration: null,
-            bottleneckSize: null
-        });
+                generations: 100,
 
-    // Første verdi er identisk med sluttverdien
-    // fra den eksisterende simuleringen.
-    const nyeFrekvenser =
-        ekstraResultat.freqs.slice(1);
+                N: sisteParametere.useDrift
+                    ? sisteParametere.N
+                    : null,
 
-    const nyeGenotyper =
-        ekstraResultat.genotypes.slice(1);
+                // En eventuell flaskehals gjentas ikke
+                bottleneckStart: null,
+                bottleneckDuration: null,
+                bottleneckSize: null
+            });
 
-    sisteResultat.freqs.push(...nyeFrekvenser);
-    sisteResultat.genotypes.push(...nyeGenotyper);
+        // Generasjon 0 i den nye simuleringen er identisk
+        // med siste generasjon i den eksisterende simuleringen.
+        const nyeFrekvenser =
+            ekstraResultat.freqs.slice(1);
 
-    // Oppdater området for presis avlesning
+        const nyeGenotyper =
+            ekstraResultat.genotypes.slice(1);
+
+        sisteResultat.freqs.push(...nyeFrekvenser);
+        sisteResultat.genotypes.push(...nyeGenotyper);
+
+    } else {
+
+        // ----------------------------------------
+        // TO POPULASJONER
+        // ----------------------------------------
+
+        const sisteFrekvenser =
+            sisteResultat.freqs[sisteResultat.freqs.length - 1];
+
+        const ekstraResultat =
+            simulateTwoPopulations({
+                p0_1: sisteFrekvenser[0],
+                p0_2: sisteFrekvenser[1],
+
+                wAA_1: sisteParametere.wAA_1,
+                wAa_1: sisteParametere.wAa_1,
+                waa_1: sisteParametere.waa_1,
+
+                wAA_2: sisteParametere.wAA_2,
+                wAa_2: sisteParametere.wAa_2,
+                waa_2: sisteParametere.waa_2,
+
+                mu: sisteParametere.mu,
+                nu: sisteParametere.nu,
+
+                generations: 100,
+
+                N: sisteParametere.useDrift
+                    ? sisteParametere.N
+                    : null,
+
+                migrate: sisteParametere.useMigration,
+                m12: sisteParametere.m12,
+                m21: sisteParametere.m21
+            });
+
+        // Generasjon 0 i den nye simuleringen er identisk
+        // med siste generasjon i den eksisterende simuleringen.
+        const nyeFrekvenser =
+            ekstraResultat.freqs.slice(1);
+
+        const nyeGenotyper =
+            ekstraResultat.genotypes.slice(1);
+
+        sisteResultat.freqs.push(...nyeFrekvenser);
+        sisteResultat.genotypes.push(...nyeGenotyper);
+    }
+
+    // ----------------------------------------
+    // FELLES OPPDATERING AV RESULTATVISNINGEN
+    // ----------------------------------------
+
     generationReadoutInput.max =
         sisteResultat.freqs.length - 1;
 
     generationReadoutResult.textContent = "";
 
-    // Tegn den visningen brukeren allerede har valgt
     const visning = hentResultatvisning();
 
-    if (visning === "alleler") {
-        visAllelfrekvensEnPopulasjon(sisteResultat);
+    if (sisteParametere.numPops === 1) {
+
+        if (visning === "alleler") {
+            visAllelfrekvensEnPopulasjon(sisteResultat);
+        } else {
+            visGenotypefrekvenserEnPopulasjon(sisteResultat);
+        }
+
     } else {
-        visGenotypefrekvenserEnPopulasjon(sisteResultat);
+
+        if (visning === "alleler") {
+            visAllelfrekvensToPopulasjoner(sisteResultat);
+        } else {
+            visGenotypefrekvenserToPopulasjoner(sisteResultat);
+        }
     }
 });
 
