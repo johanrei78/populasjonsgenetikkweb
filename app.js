@@ -1339,24 +1339,33 @@ function validerFlaskehals() {
         return true;
     }
 
+    const feil = [];
+
     if (state.bottleneckStart >= state.generations) {
-        validationMessage.textContent =
-            "Startgenerasjonen for flaskehalsen må være mindre enn antall generasjoner.";
-        return false;
+        feil.push(
+            "Startgenerasjonen for flaskehalsen må være mindre enn antall generasjoner."
+        );
     }
 
     if (
         state.bottleneckStart + state.bottleneckDuration >
         state.generations
     ) {
-        validationMessage.textContent =
-            "Flaskehalsens varighet går forbi siste generasjon.";
-        return false;
+        feil.push(
+            "Flaskehalsens varighet går forbi siste generasjon."
+        );
     }
 
     if (state.bottleneckSize > state.N) {
-        validationMessage.textContent =
-            "Populasjonsstørrelsen under flaskehalsen kan ikke være større enn vanlig populasjonsstørrelse.";
+        feil.push(
+            "Populasjonsstørrelsen under flaskehalsen kan ikke være større enn vanlig populasjonsstørrelse."
+        );
+    }
+
+    if (feil.length > 0) {
+        validationMessage.innerHTML =
+            feil.map(melding => `<div>${melding}</div>`).join("");
+
         return false;
     }
 
