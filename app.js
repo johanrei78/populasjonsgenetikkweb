@@ -1235,7 +1235,7 @@ function visParameteroppsummering(params) {
 
     let html = `
         <ul>
-            <li>Antall generasjoner: ${params.generations}</li>
+            <li>Antall generasjoner: ${sisteResultat.freqs.length - 1}</li>
             <li>Antall populasjoner: ${params.numPops}</li>
     `;
 
@@ -1877,6 +1877,8 @@ extendSimulationButton.addEventListener("click", () => {
         sisteResultat.freqs.length - 1;
 
     generationReadoutResult.textContent = "";
+
+    visParameteroppsummering(sisteParametere);
 
     const visning = hentResultatvisning();
 
