@@ -1772,6 +1772,69 @@ window.addEventListener("resize", () => {
     }
 });
 
+extendSimulationButton.addEventListener("click", () => {
+
+    if (
+        !sisteResultat ||
+        !sisteParametere ||
+        sisteParametere.numPops !== 1
+    ) {
+        return;
+    }
+
+    const sisteFrekvens =
+        sisteResultat.freqs[sisteResultat.freqs.length - 1];
+
+    const ekstraResultat =
+        simulateOnePopulationDeterministic({
+            p0: sisteFrekvens,
+
+            wAA: sisteParametere.wAA_1,
+            wAa: sisteParametere.wAa_1,
+            waa: sisteParametere.waa_1,
+
+            mu: sisteParametere.mu,
+            nu: sisteParametere.nu,
+
+            generations: 100,
+
+            N: sisteParametere.useDrift
+                ? sisteParametere.N
+                : null,
+
+            // En eventuell flaskehals gjentas ikke
+            bottleneckStart: null,
+            bottleneckDuration: null,
+            bottleneckSize: null
+        });
+
+    // Første verdi er identisk med sluttverdien
+    // fra den eksisterende simuleringen.
+    const nyeFrekvenser =
+        ekstraResultat.freqs.slice(1);
+
+    const nyeGenotyper =
+        ekstraResultat.genotypes.slice(1);
+
+    sisteResultat.freqs.push(...nyeFrekvenser);
+    sisteResultat.genotypes.push(...nyeGenotyper);
+
+    // Oppdater området for presis avlesning
+    generationReadoutInput.max =
+        sisteResultat.freqs.length - 1;
+
+    generationReadoutResult.textContent = "";
+
+    // Tegn den visningen brukeren allerede har valgt
+    const visning = hentResultatvisning();
+
+    if (visning === "alleler") {
+        visAllelfrekvensEnPopulasjon(sisteResultat);
+    } else {
+        visGenotypefrekvenserEnPopulasjon(sisteResultat);
+    }
+});
+
 // ------------------------------------------------------------
 // OPPSTART
 // ------------------------------------------------------------
