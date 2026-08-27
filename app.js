@@ -831,7 +831,9 @@ function visGenotypefrekvenserEnPopulasjon(resultat) {
             r: 20,
             t: 60,
             b: 60
-        }
+        },
+
+        height: smalSkjerm ? 700 : 450,
     };
 
     const config = {
@@ -862,6 +864,8 @@ function visAllelfrekvensToPopulasjoner(resultat) {
     const frekvensPop2 =
         resultat.freqs.map(frekvenser => frekvenser[1]);
 
+    const smalSkjerm = window.innerWidth <= 600;
+    
     const data = [
         {
             x: generasjoner,
@@ -895,8 +899,8 @@ function visAllelfrekvensToPopulasjoner(resultat) {
         },
 
         grid: {
-            rows: 1,
-            columns: 2,
+            rows: smalSkjerm ? 2 : 1,
+            columns: smalSkjerm ? 1 : 2,
             pattern: "independent"
         },
 
@@ -927,24 +931,43 @@ function visAllelfrekvensToPopulasjoner(resultat) {
             fixedrange: true
         },
 
-        annotations: [
-            {
-                text: "Populasjon 1",
-                x: 0.225,
-                y: 1.08,
-                xref: "paper",
-                yref: "paper",
-                showarrow: false
-            },
-            {
-                text: "Populasjon 2",
-                x: 0.775,
-                y: 1.08,
-                xref: "paper",
-                yref: "paper",
-                showarrow: false
-            }
-        ],
+        annotations: smalSkjerm
+            ? [
+                {
+                    text: "Populasjon 1",
+                    x: 0.5,
+                    y: 1.05,
+                    xref: "paper",
+                    yref: "paper",
+                    showarrow: false
+                },
+                {
+                    text: "Populasjon 2",
+                    x: 0.5,
+                    y: 0.48,
+                    xref: "paper",
+                    yref: "paper",
+                    showarrow: false
+                }
+            ]
+            : [
+                {
+                    text: "Populasjon 1",
+                    x: 0.225,
+                    y: 1.08,
+                    xref: "paper",
+                    yref: "paper",
+                    showarrow: false
+                },
+                {
+                    text: "Populasjon 2",
+                    x: 0.775,
+                    y: 1.08,
+                    xref: "paper",
+                    yref: "paper",
+                    showarrow: false
+                }
+            ],
 
         margin: {
             l: 60,
