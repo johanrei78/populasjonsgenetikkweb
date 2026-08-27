@@ -1401,6 +1401,22 @@ resultViewInputs.forEach(input => {
     });
 });
 
+window.addEventListener("resize", () => {
+
+    if (!sisteResultat) {
+        return;
+    }
+
+    if (state.numPops === 2) {
+
+        const visning = hentResultatvisning();
+
+        if (visning === "alleler") {
+            visAllelfrekvensToPopulasjoner(sisteResultat);
+        }
+    }
+});
+
 // ------------------------------------------------------------
 // OPPSTART
 // ------------------------------------------------------------
