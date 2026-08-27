@@ -674,6 +674,67 @@ function simulateTwoPopulations({
     };
 }
 
+// ------------------------------------------------------------
+// FIGUR ALLELFREKVENS
+// ------------------------------------------------------------
+
+function visAllelfrekvensEnPopulasjon(resultat) {
+
+    const generasjoner =
+        resultat.freqs.map((_, index) => index);
+
+    const frekvenser = resultat.freqs;
+
+    const data = [
+        {
+            x: generasjoner,
+            y: frekvenser,
+            type: "scatter",
+            mode: "lines",
+            name: "A₁",
+            hovertemplate:
+                "Generasjon %{x}<br>Frekvens A₁: %{y:.3f}<extra></extra>"
+        }
+    ];
+
+    const layout = {
+        title: {
+            text: "Allelfrekvens A₁"
+        },
+        xaxis: {
+            title: {
+                text: "Generasjon"
+            },
+            fixedrange: true
+        },
+        yaxis: {
+            title: {
+                text: "Frekvens"
+            },
+            range: [0, 1],
+            fixedrange: true
+        },
+        margin: {
+            l: 60,
+            r: 20,
+            t: 60,
+            b: 60
+        }
+    };
+
+    const config = {
+        responsive: true,
+        displayModeBar: false,
+        scrollZoom: false
+    };
+
+    Plotly.newPlot(
+        alleleGraph,
+        data,
+        layout,
+        config
+    );
+}
 
 // ------------------------------------------------------------
 // EVENT-LYTTERE
@@ -981,10 +1042,13 @@ runSimulationButton.addEventListener("click", () => {
                 ${endFrequency.toFixed(3)}
             </p>
         `;
+
+        visAllelfrekvensEnPopulasjon(resultat);
     }
     visSide("resultater");
     
 });
+
 
 // ------------------------------------------------------------
 // OPPSTART
