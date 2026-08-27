@@ -213,6 +213,9 @@ const resultViewInputs =
 const parameterSummaryContent =
     document.getElementById("parameteroppsummering-innhold");
 
+const extendSimulationButton =
+    document.getElementById("extend-simulation");
+
 // ------------------------------------------------------------
 // NAVIGASJON
 // ------------------------------------------------------------
