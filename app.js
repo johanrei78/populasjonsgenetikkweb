@@ -1572,7 +1572,7 @@ runSimulationButton.addEventListener("click", () => {
 
 generationReadoutButton.addEventListener("click", () => {
 
-    if (!sisteResultat || state.numPops !== 1) {
+    if (!sisteResultat) {
         return;
     }
 
@@ -1592,21 +1592,49 @@ generationReadoutButton.addEventListener("click", () => {
 
     const visning = hentResultatvisning();
 
-    if (visning === "alleler") {
+    if (state.numPops === 1) {
 
-        const frequency =
-            sisteResultat.freqs[generation];
+        if (visning === "alleler") {
 
-        generationReadoutResult.textContent =
-            `I generasjon ${generation} er frekvensen av A₁ ${frequency.toFixed(3)}.`;
+            const frequency =
+                sisteResultat.freqs[generation];
+
+            generationReadoutResult.textContent =
+                `I generasjon ${generation} er frekvensen av A₁ ${frequency.toFixed(3)}.`;
+
+        } else {
+
+            const genotype =
+                sisteResultat.genotypes[generation];
+
+            generationReadoutResult.textContent =
+                `I generasjon ${generation} er frekvensene A₁A₁: ${genotype.AA.toFixed(3)}, A₁A₂: ${genotype.Aa.toFixed(3)} og A₂A₂: ${genotype.aa.toFixed(3)}.`;
+        }
 
     } else {
 
-        const genotype =
-            sisteResultat.genotypes[generation];
+        if (visning === "alleler") {
 
-        generationReadoutResult.textContent =
-            `I generasjon ${generation} er frekvensene A₁A₁: ${genotype.AA.toFixed(3)}, A₁A₂: ${genotype.Aa.toFixed(3)} og A₂A₂: ${genotype.aa.toFixed(3)}.`;
+            const frequencyPop1 =
+                sisteResultat.freqs[generation][0];
+
+            const frequencyPop2 =
+                sisteResultat.freqs[generation][1];
+
+            generationReadoutResult.textContent =
+                `I generasjon ${generation} er frekvensen av A₁ ${frequencyPop1.toFixed(3)} i populasjon 1 og ${frequencyPop2.toFixed(3)} i populasjon 2.`;
+
+        } else {
+
+            const genotypePop1 =
+                sisteResultat.genotypes[generation][0];
+
+            const genotypePop2 =
+                sisteResultat.genotypes[generation][1];
+
+            generationReadoutResult.textContent =
+                `I generasjon ${generation} er genotypefrekvensene i populasjon 1: A₁A₁ ${genotypePop1.AA.toFixed(3)}, A₁A₂ ${genotypePop1.Aa.toFixed(3)} og A₂A₂ ${genotypePop1.aa.toFixed(3)}. I populasjon 2 er frekvensene A₁A₁ ${genotypePop2.AA.toFixed(3)}, A₁A₂ ${genotypePop2.Aa.toFixed(3)} og A₂A₂ ${genotypePop2.aa.toFixed(3)}.`;
+        }
     }
 });
 
