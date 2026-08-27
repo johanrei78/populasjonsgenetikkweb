@@ -1320,6 +1320,40 @@ function visParameteroppsummering(params) {
     parameterSummaryContent.innerHTML = html;
 }
 
+
+//VALIDERING FLASKEHALS
+
+function validerFlaskehals() {
+
+    if (
+        state.numPops !== 1 ||
+        !state.useDrift ||
+        !state.useBottleneck
+    ) {
+        return true;
+    }
+
+    if (state.bottleneckStart >= state.generations) {
+        alert("Startgenerasjonen for flaskehalsen må være mindre enn antall generasjoner.");
+        return false;
+    }
+
+    if (
+        state.bottleneckStart + state.bottleneckDuration >
+        state.generations
+    ) {
+        alert("Flaskehalsens varighet går forbi siste generasjon.");
+        return false;
+    }
+
+    if (state.bottleneckSize > state.N) {
+        alert("Populasjonsstørrelsen under flaskehalsen kan ikke være større enn vanlig populasjonsstørrelse.");
+        return false;
+    }
+
+    return true;
+}
+
 // ------------------------------------------------------------
 // EVENT-LYTTERE
 // ------------------------------------------------------------
@@ -1541,6 +1575,10 @@ m21Input.addEventListener("change", () => {
 
 runSimulationButton.addEventListener("click", () => {
 
+    if (!validerFlaskehals()) {
+        return;
+    }
+    
     let resultat;
 
     if (state.numPops === 1) {
