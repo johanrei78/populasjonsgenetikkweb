@@ -210,6 +210,9 @@ const resultViewInputs =
         'input[name="resultatvisning"]'
     );
 
+const parameterSummaryContent =
+    document.getElementById("parameteroppsummering-innhold");
+
 // ------------------------------------------------------------
 // NAVIGASJON
 // ------------------------------------------------------------
@@ -1223,6 +1226,96 @@ function visGenotypefrekvenserToPopulasjoner(resultat) {
 
 // Lagrer resultatet fra siste simulering
 let sisteResultat = null;
+let sisteParametere = null;
+
+function visParameteroppsummering(params) {
+
+    let html = `
+        <ul>
+            <li>Antall generasjoner: ${params.generations}</li>
+            <li>Antall populasjoner: ${params.numPops}</li>
+    `;
+
+    if (params.numPops === 1) {
+
+        html += `
+            <li>Startfrekvens A₁: ${params.p0.toFixed(3)}</li>
+            <li>
+                Fitness:
+                A₁A₁ = ${params.wAA_1.toFixed(2)},
+                A₁A₂ = ${params.wAa_1.toFixed(2)},
+                A₂A₂ = ${params.waa_1.toFixed(2)}
+            </li>
+        `;
+
+    } else {
+
+        html += `
+            <li>
+                Startfrekvens A₁:
+                populasjon 1 = ${params.p0_1.toFixed(3)},
+                populasjon 2 = ${params.p0_2.toFixed(3)}
+            </li>
+            <li>
+                Fitness populasjon 1:
+                A₁A₁ = ${params.wAA_1.toFixed(2)},
+                A₁A₂ = ${params.wAa_1.toFixed(2)},
+                A₂A₂ = ${params.waa_1.toFixed(2)}
+            </li>
+            <li>
+                Fitness populasjon 2:
+                A₁A₁ = ${params.wAA_2.toFixed(2)},
+                A₁A₂ = ${params.wAa_2.toFixed(2)},
+                A₂A₂ = ${params.waa_2.toFixed(2)}
+            </li>
+        `;
+    }
+
+    html += `
+        <li>
+            Mutasjon:
+            A₁ → A₂ = ${params.mu},
+            A₂ → A₁ = ${params.nu}
+        </li>
+    `;
+
+    if (params.useDrift) {
+        html += `
+            <li>Genetisk drift: på, N = ${params.N}</li>
+        `;
+
+        if (params.numPops === 1 && params.useBottleneck) {
+            html += `
+                <li>
+                    Flaskehals:
+                    startgenerasjon ${params.bottleneckStart},
+                    varighet ${params.bottleneckDuration} generasjoner,
+                    N = ${params.bottleneckSize}
+                </li>
+            `;
+        }
+    } else {
+        html += `<li>Genetisk drift: av</li>`;
+    }
+
+    if (params.numPops === 2) {
+        if (params.useMigration) {
+            html += `
+                <li>
+                    Genflyt: på,
+                    populasjon 1 → 2 = ${params.m12},
+                    populasjon 2 → 1 = ${params.m21}
+                </li>
+            `;
+        } else {
+            html += `<li>Genflyt: av</li>`;
+        }
+    }
+
+    html += `</ul>`;
+
+    parameterSummaryContent.innerHTML = html;
+}
 
 // ------------------------------------------------------------
 // EVENT-LYTTERE
@@ -1515,6 +1608,10 @@ runSimulationButton.addEventListener("click", () => {
     }
 
     sisteResultat = resultat;
+    
+    sisteParametere = { ...state };
+
+    visParameteroppsummering(sisteParametere);
 
     visSide("resultater");
     
