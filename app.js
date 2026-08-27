@@ -205,6 +205,11 @@ const generationReadoutButton =
 const generationReadoutResult =
     document.getElementById("avlesning-resultat");
 
+const resultViewInputs =
+    document.querySelectorAll(
+        'input[name="resultatvisning"]'
+    );
+
 // ------------------------------------------------------------
 // NAVIGASJON
 // ------------------------------------------------------------
@@ -405,6 +410,14 @@ function sampleBinomial(n, probability) {
     }
 
     return successes;
+}
+
+function hentResultatvisning() {
+    const valgt = document.querySelector(
+        'input[name="resultatvisning"]:checked'
+    );
+
+    return valgt ? valgt.value : "alleler";
 }
 
 // ------------------------------------------------------------
@@ -1065,6 +1078,8 @@ runSimulationButton.addEventListener("click", () => {
     
 });
 
+//AVLESNING GENERASJON
+
 generationReadoutButton.addEventListener("click", () => {
 
     if (!sisteResultat || state.numPops !== 1) {
@@ -1090,6 +1105,16 @@ generationReadoutButton.addEventListener("click", () => {
 
     generationReadoutResult.textContent =
         `I generasjon ${generation} er frekvensen av A₁ ${frequency.toFixed(3)}.`;
+});
+
+//RESULTATVISNING
+resultViewInputs.forEach(input => {
+    input.addEventListener("change", () => {
+        console.log(
+            "Valgt resultatvisning:",
+            hentResultatvisning()
+        );
+    });
 });
 
 // ------------------------------------------------------------
