@@ -930,6 +930,8 @@ function visAllelfrekvensToPopulasjoner(resultat) {
             },    
             range: [0, 1],
             fixedrange: true,
+            showticklabels: true,
+            ticks: "outside",
             domain: smalSkjerm ? [0, 0.43] : [0, 1]
         },
 
