@@ -925,9 +925,9 @@ function visAllelfrekvensToPopulasjoner(resultat) {
         },
 
         yaxis2: {
-            title: smalSkjerm
-                ? { text: "Frekvens" }
-                : undefined,
+            title: {
+                text: "Frekvens" 
+            },    
             range: [0, 1],
             fixedrange: true,
             domain: smalSkjerm ? [0, 0.43] : [0, 1]
