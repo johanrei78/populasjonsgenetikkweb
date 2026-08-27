@@ -1022,6 +1022,8 @@ function visGenotypefrekvenserToPopulasjoner(resultat) {
     const aa_pop2 =
         resultat.genotypes.map(rad => rad[1].aa);
 
+    const genotypeFarger = Plotly.d3.schemeCategory10;
+    
     const data = [
         {
             x: generasjoner,
@@ -1031,6 +1033,7 @@ function visGenotypefrekvenserToPopulasjoner(resultat) {
             name: "A₁A₁",
             xaxis: "x",
             yaxis: "y",
+            line: { color: genotypeFarger[0] },
             hovertemplate:
                 "Generasjon %{x}<br>Frekvens A₁A₁: %{y:.3f}<extra></extra>"
         },
@@ -1042,6 +1045,7 @@ function visGenotypefrekvenserToPopulasjoner(resultat) {
             name: "A₁A₂",
             xaxis: "x",
             yaxis: "y",
+            line: { color: genotypeFarger[1] },
             hovertemplate:
                 "Generasjon %{x}<br>Frekvens A₁A₂: %{y:.3f}<extra></extra>"
         },
@@ -1053,6 +1057,7 @@ function visGenotypefrekvenserToPopulasjoner(resultat) {
             name: "A₂A₂",
             xaxis: "x",
             yaxis: "y",
+            line: { color: genotypeFarger[2] },
             hovertemplate:
                 "Generasjon %{x}<br>Frekvens A₂A₂: %{y:.3f}<extra></extra>"
         },
@@ -1066,6 +1071,7 @@ function visGenotypefrekvenserToPopulasjoner(resultat) {
             showlegend: false,
             xaxis: "x2",
             yaxis: "y2",
+            line: { color: genotypeFarger[0] },
             hovertemplate:
                 "Generasjon %{x}<br>Frekvens A₁A₁: %{y:.3f}<extra></extra>"
         },
@@ -1078,6 +1084,7 @@ function visGenotypefrekvenserToPopulasjoner(resultat) {
             showlegend: false,
             xaxis: "x2",
             yaxis: "y2",
+            line: { color: genotypeFarger[1] },
             hovertemplate:
                 "Generasjon %{x}<br>Frekvens A₁A₂: %{y:.3f}<extra></extra>"
         },
@@ -1090,6 +1097,7 @@ function visGenotypefrekvenserToPopulasjoner(resultat) {
             showlegend: false,
             xaxis: "x2",
             yaxis: "y2",
+            line: { color: genotypeFarger[2] },
             hovertemplate:
                 "Generasjon %{x}<br>Frekvens A₂A₂: %{y:.3f}<extra></extra>"
         }
