@@ -997,6 +997,211 @@ function visAllelfrekvensToPopulasjoner(resultat) {
     );
 }
 
+function visGenotypefrekvenserToPopulasjoner(resultat) {
+
+    const smalSkjerm = window.innerWidth <= 600;
+
+    const generasjoner =
+        resultat.genotypes.map((_, index) => index);
+
+    const AA_pop1 =
+        resultat.genotypes.map(rad => rad[0].AA);
+
+    const Aa_pop1 =
+        resultat.genotypes.map(rad => rad[0].Aa);
+
+    const aa_pop1 =
+        resultat.genotypes.map(rad => rad[0].aa);
+
+    const AA_pop2 =
+        resultat.genotypes.map(rad => rad[1].AA);
+
+    const Aa_pop2 =
+        resultat.genotypes.map(rad => rad[1].Aa);
+
+    const aa_pop2 =
+        resultat.genotypes.map(rad => rad[1].aa);
+
+    const data = [
+        {
+            x: generasjoner,
+            y: AA_pop1,
+            type: "scatter",
+            mode: "lines",
+            name: "A₁A₁",
+            xaxis: "x",
+            yaxis: "y",
+            hovertemplate:
+                "Generasjon %{x}<br>Frekvens A₁A₁: %{y:.3f}<extra></extra>"
+        },
+        {
+            x: generasjoner,
+            y: Aa_pop1,
+            type: "scatter",
+            mode: "lines",
+            name: "A₁A₂",
+            xaxis: "x",
+            yaxis: "y",
+            hovertemplate:
+                "Generasjon %{x}<br>Frekvens A₁A₂: %{y:.3f}<extra></extra>"
+        },
+        {
+            x: generasjoner,
+            y: aa_pop1,
+            type: "scatter",
+            mode: "lines",
+            name: "A₂A₂",
+            xaxis: "x",
+            yaxis: "y",
+            hovertemplate:
+                "Generasjon %{x}<br>Frekvens A₂A₂: %{y:.3f}<extra></extra>"
+        },
+
+        {
+            x: generasjoner,
+            y: AA_pop2,
+            type: "scatter",
+            mode: "lines",
+            name: "A₁A₁",
+            showlegend: false,
+            xaxis: "x2",
+            yaxis: "y2",
+            hovertemplate:
+                "Generasjon %{x}<br>Frekvens A₁A₁: %{y:.3f}<extra></extra>"
+        },
+        {
+            x: generasjoner,
+            y: Aa_pop2,
+            type: "scatter",
+            mode: "lines",
+            name: "A₁A₂",
+            showlegend: false,
+            xaxis: "x2",
+            yaxis: "y2",
+            hovertemplate:
+                "Generasjon %{x}<br>Frekvens A₁A₂: %{y:.3f}<extra></extra>"
+        },
+        {
+            x: generasjoner,
+            y: aa_pop2,
+            type: "scatter",
+            mode: "lines",
+            name: "A₂A₂",
+            showlegend: false,
+            xaxis: "x2",
+            yaxis: "y2",
+            hovertemplate:
+                "Generasjon %{x}<br>Frekvens A₂A₂: %{y:.3f}<extra></extra>"
+        }
+    ];
+
+    const layout = {
+        title: {
+            text: "Genotypefrekvenser"
+        },
+
+        xaxis: {
+            title: {
+                text: "Generasjon"
+            },
+            fixedrange: true,
+            anchor: "y",
+            domain: smalSkjerm ? [0, 1] : [0, 0.45]
+        },
+
+        yaxis: {
+            title: {
+                text: "Frekvens"
+            },
+            range: [0, 1],
+            fixedrange: true,
+            anchor: "x",
+            domain: smalSkjerm ? [0.57, 1] : [0, 1]
+        },
+
+        xaxis2: {
+            title: {
+                text: "Generasjon"
+            },
+            fixedrange: true,
+            anchor: "y2",
+            domain: smalSkjerm ? [0, 1] : [0.55, 1]
+        },
+
+        yaxis2: {
+            title: {
+                text: "Frekvens"
+            },
+            range: [0, 1],
+            fixedrange: true,
+            anchor: "x2",
+            showticklabels: true,
+            ticks: "outside",
+            domain: smalSkjerm ? [0, 0.43] : [0, 1]
+        },
+
+        annotations: smalSkjerm
+            ? [
+                {
+                    text: "Populasjon 1",
+                    x: 0.5,
+                    y: 1.05,
+                    xref: "paper",
+                    yref: "paper",
+                    showarrow: false
+                },
+                {
+                    text: "Populasjon 2",
+                    x: 0.5,
+                    y: 0.48,
+                    xref: "paper",
+                    yref: "paper",
+                    showarrow: false
+                }
+            ]
+            : [
+                {
+                    text: "Populasjon 1",
+                    x: 0.225,
+                    y: 1.08,
+                    xref: "paper",
+                    yref: "paper",
+                    showarrow: false
+                },
+                {
+                    text: "Populasjon 2",
+                    x: 0.775,
+                    y: 1.08,
+                    xref: "paper",
+                    yref: "paper",
+                    showarrow: false
+                }
+            ],
+
+        margin: {
+            l: 60,
+            r: 20,
+            t: 85,
+            b: 60
+        },
+
+        height: smalSkjerm ? 850 : 450
+    };
+
+    const config = {
+        responsive: true,
+        displayModeBar: false,
+        scrollZoom: false
+    };
+
+    Plotly.newPlot(
+        alleleGraph,
+        data,
+        layout,
+        config
+    );
+}
+
 // Lagrer resultatet fra siste simulering
 let sisteResultat = null;
 
@@ -1391,16 +1596,27 @@ generationReadoutButton.addEventListener("click", () => {
 resultViewInputs.forEach(input => {
     input.addEventListener("change", () => {
 
-        if (!sisteResultat || state.numPops !== 1) {
+        if (!sisteResultat) {
             return;
         }
 
         const visning = hentResultatvisning();
 
-        if (visning === "alleler") {
-            visAllelfrekvensEnPopulasjon(sisteResultat);
+        if (state.numPops === 1) {
+
+            if (visning === "alleler") {
+                visAllelfrekvensEnPopulasjon(sisteResultat);
+            } else {
+                visGenotypefrekvenserEnPopulasjon(sisteResultat);
+            }
+
         } else {
-            visGenotypefrekvenserEnPopulasjon(sisteResultat);
+
+            if (visning === "alleler") {
+                visAllelfrekvensToPopulasjoner(sisteResultat);
+            } else {
+                visGenotypefrekvenserToPopulasjoner(sisteResultat);
+            }
         }
     });
 });
@@ -1417,6 +1633,8 @@ window.addEventListener("resize", () => {
 
         if (visning === "alleler") {
             visAllelfrekvensToPopulasjoner(sisteResultat);
+        } else {
+            visGenotypefrekvenserToPopulasjoner(sisteResultat);
         }
     }
 });
