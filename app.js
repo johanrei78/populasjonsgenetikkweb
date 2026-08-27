@@ -193,6 +193,9 @@ const resultSection =
 const resultContent =
     document.getElementById("resultat-innhold");
 
+const alleleGraph =
+    document.getElementById("allelgraf");
+
 // ------------------------------------------------------------
 // NAVIGASJON
 // ------------------------------------------------------------
