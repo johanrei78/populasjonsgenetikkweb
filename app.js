@@ -697,7 +697,7 @@ function simulateTwoPopulations({
 }
 
 // ------------------------------------------------------------
-// FIGUR ALLELFREKVENS
+// FIGURER
 // ------------------------------------------------------------
 
 const alleleViewInput =
@@ -848,6 +848,126 @@ function visGenotypefrekvenserEnPopulasjon(resultat) {
     );
 }
 
+
+
+
+function visAllelfrekvensToPopulasjoner(resultat) {
+
+    const generasjoner =
+        resultat.freqs.map((_, index) => index);
+
+    const frekvensPop1 =
+        resultat.freqs.map(frekvenser => frekvenser[0]);
+
+    const frekvensPop2 =
+        resultat.freqs.map(frekvenser => frekvenser[1]);
+
+    const data = [
+        {
+            x: generasjoner,
+            y: frekvensPop1,
+            type: "scatter",
+            mode: "lines",
+            name: "A₁",
+            xaxis: "x",
+            yaxis: "y",
+            hovertemplate:
+                "Generasjon %{x}<br>Frekvens A₁: %{y:.3f}<extra></extra>"
+        },
+        {
+            x: generasjoner,
+            y: frekvensPop2,
+            type: "scatter",
+            mode: "lines",
+            name: "A₁",
+            showlegend: false,
+            xaxis: "x2",
+            yaxis: "y2",
+            hovertemplate:
+                "Generasjon %{x}<br>Frekvens A₁: %{y:.3f}<extra></extra>"
+        }
+    ];
+
+    const layout = {
+        title: {
+            text: "Allelfrekvens A₁"
+        },
+
+        grid: {
+            rows: 1,
+            columns: 2,
+            pattern: "independent"
+        },
+
+        xaxis: {
+            title: {
+                text: "Generasjon"
+            },
+            fixedrange: true
+        },
+
+        yaxis: {
+            title: {
+                text: "Frekvens"
+            },
+            range: [0, 1],
+            fixedrange: true
+        },
+
+        xaxis2: {
+            title: {
+                text: "Generasjon"
+            },
+            fixedrange: true
+        },
+
+        yaxis2: {
+            range: [0, 1],
+            fixedrange: true
+        },
+
+        annotations: [
+            {
+                text: "Populasjon 1",
+                x: 0.225,
+                y: 1.08,
+                xref: "paper",
+                yref: "paper",
+                showarrow: false
+            },
+            {
+                text: "Populasjon 2",
+                x: 0.775,
+                y: 1.08,
+                xref: "paper",
+                yref: "paper",
+                showarrow: false
+            }
+        ],
+
+        margin: {
+            l: 60,
+            r: 20,
+            t: 85,
+            b: 60
+        }
+    };
+
+    const config = {
+        responsive: true,
+        displayModeBar: false,
+        scrollZoom: false
+    };
+
+    Plotly.newPlot(
+        alleleGraph,
+        data,
+        layout,
+        config
+    );
+}
+
+// Lagrer resultatet fra siste simulering
 let sisteResultat = null;
 
 // ------------------------------------------------------------
@@ -1170,7 +1290,24 @@ runSimulationButton.addEventListener("click", () => {
         }
         
         visAllelfrekvensEnPopulasjon(resultat);
+    
+    } else {
+
+        const alleleViewInput = document.querySelector(
+            'input[name="resultatvisning"][value="alleler"]'
+        );
+
+        if (alleleViewInput) {
+            alleleViewInput.checked = true;
+        }
+
+        generationReadoutInput.max = state.generations;
+        generationReadoutInput.value = 0;
+        generationReadoutResult.textContent = "";
+
+        visAllelfrekvensToPopulasjoner(resultat);
     }
+    
     visSide("resultater");
     
 });
