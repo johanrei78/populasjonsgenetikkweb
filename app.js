@@ -220,6 +220,12 @@ const parameterSummaryContent =
 const extendSimulationButton =
     document.getElementById("extend-simulation");
 
+const noResultsMessage =
+    document.getElementById("ingen-resultater-melding");
+
+const resultsContent =
+    document.getElementById("resultater-innhold");
+
 // ------------------------------------------------------------
 // NAVIGASJON
 // ------------------------------------------------------------
@@ -1772,6 +1778,10 @@ runSimulationButton.addEventListener("click", () => {
     sisteResultat = resultat;
     
     sisteParametere = { ...state };
+
+    noResultsMessage.hidden = true;
+    
+    resultsContent.hidden = false;
 
     visParameteroppsummering(sisteParametere);
 
