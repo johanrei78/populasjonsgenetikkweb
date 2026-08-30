@@ -538,9 +538,23 @@
                     <div id="migrasjon-innstillinger" hidden>
 
                         <div class="fitness-rad">
-                            <label for="m12">
-                                Migrasjonsrate populasjon 1 → 2
-                            </label>
+                            <div class="label-med-info">
+                                <label for="m12">
+                                    Migrasjonsrate populasjon 1 → 2
+                                </label>
+
+                                <details class="info-detaljer">
+                                    <summary aria-label="Vis forklaring av migrasjonsrate fra populasjon 1 til populasjon 2">
+                                        ?
+                                    </summary>
+
+                                    <div class="info-tekst">
+                                        Andelen av populasjon 2 som erstattes av migranter fra populasjon 1
+                                        i hver generasjon. I simulatoren kan du bruke verdier fra 0 til 1.
+                                        En migrasjonsrate på 0,05 tilsvarer 5 %.
+                                    </div>
+                                </details>
+                            </div>
 
                             <input
                                 class="tallfelt"
@@ -553,10 +567,25 @@
                             >
                         </div>
 
+
                         <div class="fitness-rad">
-                            <label for="m21">
-                                Migrasjonsrate populasjon 2 → 1
-                            </label>
+                            <div class="label-med-info">
+                                <label for="m21">
+                                    Migrasjonsrate populasjon 2 → 1
+                                </label>
+
+                                <details class="info-detaljer">
+                                    <summary aria-label="Vis forklaring av migrasjonsrate fra populasjon 2 til populasjon 1">
+                                        ?
+                                    </summary>
+
+                                    <div class="info-tekst">
+                                        Andelen av populasjon 1 som erstattes av migranter fra populasjon 2
+                                        i hver generasjon. I simulatoren kan du bruke verdier fra 0 til 1.
+                                        En migrasjonsrate på 0,05 tilsvarer 5 %.
+                                    </div>
+                                </details>
+                             </div>
 
                             <input
                                 class="tallfelt"
@@ -568,7 +597,6 @@
                                 value="0"
                             >
                         </div>
-
                     </div>
 
                 </fieldset>
