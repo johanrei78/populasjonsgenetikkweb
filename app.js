@@ -196,8 +196,6 @@ const validationMessage =
 const resultSection =
     document.getElementById("resultater");
 
-const resultContent =
-    document.getElementById("resultat-innhold");
 
 const alleleGraph =
     document.getElementById("allelgraf");
