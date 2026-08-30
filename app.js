@@ -1371,6 +1371,43 @@ function validerFlaskehals() {
 
     return true;
 }
+
+function validerFitness() {
+
+    validationMessage.textContent = "";
+
+    const feil = [];
+
+    if (
+        state.wAA_1 === 0 &&
+        state.wAa_1 === 0 &&
+        state.waa_1 === 0
+    ) {
+        feil.push(
+            "Minst én genotype i populasjon 1 må ha fitness større enn 0."
+        );
+    }
+
+    if (
+        state.numPops === 2 &&
+        state.wAA_2 === 0 &&
+        state.wAa_2 === 0 &&
+        state.waa_2 === 0
+    ) {
+        feil.push(
+            "Minst én genotype i populasjon 2 må ha fitness større enn 0."
+        );
+    }
+
+    if (feil.length > 0) {
+        validationMessage.innerHTML =
+            feil.map(melding => `<div>${melding}</div>`).join("");
+
+        return false;
+    }
+
+    return true;
+}
 // ------------------------------------------------------------
 // EVENT-LYTTERE
 // ------------------------------------------------------------
@@ -1592,6 +1629,10 @@ m21Input.addEventListener("change", () => {
 
 runSimulationButton.addEventListener("click", () => {
 
+    if (!validerFitness()) {
+        return;
+    }
+    
     if (!validerFlaskehals()) {
         return;
     }
