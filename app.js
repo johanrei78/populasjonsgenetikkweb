@@ -1917,8 +1917,8 @@ resultViewInputs.forEach(input => {
 
         const visning = hentResultatvisning();
 
-        if (state.numPops === 1) {
-
+        if (sisteParametere.numPops === 1) {
+            
             if (visning === "alleler") {
                 visAllelfrekvensEnPopulasjon(sisteResultat);
             } else {
@@ -1942,7 +1942,7 @@ window.addEventListener("resize", () => {
         return;
     }
 
-    if (state.numPops === 2) {
+    if (sisteParametere.numPops === 2) {
 
         const visning = hentResultatvisning();
 
