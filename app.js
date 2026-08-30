@@ -1288,7 +1288,7 @@ function visParameteroppsummering(params) {
 
     if (params.useDrift) {
         html += `
-            <li>Genetisk drift: på, N = ${params.N}</li>
+            <li>Genetisk drift: N = ${params.N}</li>
         `;
 
         if (params.numPops === 1 && params.useBottleneck) {
@@ -1309,7 +1309,7 @@ function visParameteroppsummering(params) {
         if (params.useMigration) {
             html += `
                 <li>
-                    Genflyt: på,
+                    Genflyt:
                     migrasjonsrate populasjon 1 → 2 = ${params.m12},
                     migrasjonsrate populasjon 2 → 1 = ${params.m21}
                 </li>
