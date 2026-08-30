@@ -186,6 +186,8 @@ const m21Input =
 const runSimulationButton =
     document.getElementById("run-simulation");
 
+const resetSettingsButton =
+    document.getElementById("reset-settings");
 
 const validationMessage =
     document.getElementById("valideringsmelding");
@@ -1325,6 +1327,56 @@ function visParameteroppsummering(params) {
 }
 
 
+//TILBAKESTILLING
+function tilbakestillInnstillinger() {
+
+    // Tid
+    state.generations = 100;
+
+    // Antall populasjoner
+    state.numPops = 1;
+
+    // Startfrekvens for allel A₁
+    state.p0 = 0.5;
+    state.p0_1 = 0.5;
+    state.p0_2 = 0.5;
+
+    // Fitness – populasjon 1
+    state.wAA_1 = 1.0;
+    state.wAa_1 = 1.0;
+    state.waa_1 = 1.0;
+
+    // Fitness – populasjon 2
+    state.wAA_2 = 1.0;
+    state.wAa_2 = 1.0;
+    state.waa_2 = 1.0;
+
+    // Mutasjon
+    state.mu = 0.0;
+    state.nu = 0.0;
+
+    // Genetisk drift
+    state.useDrift = false;
+    state.N = 100;
+
+    // Flaskehals
+    state.useBottleneck = false;
+    state.bottleneckStart = 20;
+    state.bottleneckDuration = 10;
+    state.bottleneckSize = 20;
+
+    // Genflyt
+    state.useMigration = false;
+    state.m12 = 0.0;
+    state.m21 = 0.0;
+
+    // Fjern eventuell valideringsmelding
+    validationMessage.textContent = "";
+
+    // Oppdater grensesnittet
+    oppdaterInnstillingerFraState();
+}
+
 //VALIDERING FLASKEHALS
 
 function validerFlaskehals() {
@@ -1636,6 +1688,9 @@ m21Input.addEventListener("change", () => {
     );
 });
 
+resetSettingsButton.addEventListener("click", () => {
+    tilbakestillInnstillinger();
+});
 
 runSimulationButton.addEventListener("click", () => {
 
