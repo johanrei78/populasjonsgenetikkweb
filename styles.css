@@ -256,3 +256,12 @@ input[type="range"] {
     gap: 0.4rem;
     white-space: nowrap;
 }
+
+
+
+.hjelpetekst {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
