@@ -1430,10 +1430,20 @@ numPopsInputs.forEach(input => {
 
         if (input.checked) {
 
-            state.numPops =
-                Number(input.value);
+            const nyttAntallPopulasjoner = Number(input.value);
+
+            if (state.numPops === 1 && nyttAntallPopulasjoner === 2) {
+                state.p0_1 = state.p0;
+            }
+
+            if (state.numPops === 2 && nyttAntallPopulasjoner === 1) {
+                state.p0 = state.p0_1;
+            }
+
+            state.numPops = nyttAntallPopulasjoner;
 
             oppdaterPopulasjonsvisning();
+            oppdaterInnstillingerFraState();
         }
     });
 });
