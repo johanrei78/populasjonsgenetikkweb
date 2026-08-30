@@ -1777,8 +1777,9 @@ runSimulationButton.addEventListener("click", () => {
 
     visSide("resultater");
     
-    if (state.numPops === 1) {
-        generationReadoutInput.max = state.generations;
+    if (sisteParametere.numPops === 1) {
+        generationReadoutInput.max =
+            sisteResultat.freqs.length - 1;
         generationReadoutInput.value = 0;
         generationReadoutResult.textContent = "";
 
