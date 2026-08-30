@@ -405,7 +405,7 @@ function oppdaterSannsynlighet(input, stateKey, maxValue = 1) {
 
 function oppdaterFitness(input, stateKey) {
 
-    oppdaterSannsynlighet(input, stateKey, 1);
+    oppdaterSannsynlighet(input, stateKey, 10);
 
     oppdaterInnstillingerFraState();
 }
