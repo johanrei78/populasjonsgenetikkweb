@@ -248,6 +248,21 @@ input[type="range"] {
     box-shadow: 0 0.2rem 0.6rem rgba(0, 0, 0, 0.15);
 }
 
+@media (max-width: 600px) {
+    .info-tekst {
+        position: fixed;
+        top: auto;
+        left: 1rem;
+        right: 1rem;
+        bottom: 1rem;
+
+        width: auto;
+        max-width: none;
+
+        transform: none;
+    }
+}
+
 .resultatvalg {
     display: flex;
     flex-wrap: wrap;
