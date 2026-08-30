@@ -1815,6 +1815,29 @@ runSimulationButton.addEventListener("click", () => {
     
 });
 
+// Lukk åpne hjelpetekster ved klikk utenfor
+document.addEventListener("click", (event) => {
+
+    document.querySelectorAll(".info-detaljer[open]").forEach(details => {
+
+        if (!details.contains(event.target)) {
+            details.removeAttribute("open");
+        }
+    });
+});
+
+
+// Lukk åpne hjelpetekster med Escape
+document.addEventListener("keydown", (event) => {
+
+    if (event.key === "Escape") {
+
+        document.querySelectorAll(".info-detaljer[open]").forEach(details => {
+            details.removeAttribute("open");
+        });
+    }
+});
+
 //AVLESNING GENERASJON
 
 generationReadoutButton.addEventListener("click", () => {
