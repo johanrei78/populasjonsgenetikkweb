@@ -1860,7 +1860,7 @@ generationReadoutButton.addEventListener("click", () => {
 
     const visning = hentResultatvisning();
 
-    if (state.numPops === 1) {
+    if (sisteParametere.numPops === 1) {
 
         if (visning === "alleler") {
 
