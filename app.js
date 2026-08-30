@@ -1280,7 +1280,7 @@ function visParameteroppsummering(params) {
 
     html += `
         <li>
-            Mutasjon:
+            Mutasjonsrate:
             A₁ → A₂ = ${params.mu},
             A₂ → A₁ = ${params.nu}
         </li>
@@ -1310,8 +1310,8 @@ function visParameteroppsummering(params) {
             html += `
                 <li>
                     Genflyt: på,
-                    populasjon 1 → 2 = ${params.m12},
-                    populasjon 2 → 1 = ${params.m21}
+                    migrasjonsrate populasjon 1 → 2 = ${params.m12},
+                    migrasjonsrate populasjon 2 → 1 = ${params.m21}
                 </li>
             `;
         } else {
