@@ -232,9 +232,10 @@ input[type="range"] {
     z-index: 10;
 
     top: calc(100% + 0.4rem);
-    right: 0;
+    left: 50%;
+    transform: translateX(-50%);
 
-    width: min(20rem, 80vw);
+    width: min(20rem, calc(100vw - 2rem));
     padding: 0.65rem 0.75rem;
 
     background: #f5f5f5;
@@ -246,6 +247,7 @@ input[type="range"] {
 
     box-shadow: 0 0.2rem 0.6rem rgba(0, 0, 0, 0.15);
 }
+
 .resultatvalg {
     display: flex;
     flex-wrap: wrap;
